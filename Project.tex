@@ -1,10 +1,13 @@
-\documentclass[a4paper,8pt]{beamer}
+\documentclass[a4paper,10pt]{beamer}
 
 \usepackage[utf8]{inputenc}
 \usepackage{fontspec}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{subfloat}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{comment}
+\usepackage{wrapfig}
 
 \usefonttheme{professionalfonts}
 
@@ -49,25 +52,47 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 		\begin{itemize}
 			\item[What?]{Generalized Langevin Dynamics is a modeling technique that can be used to model anomalous diffusive phenomena observed in viscoelastic fluid flow and in biological systems.}
 			
-			\item[Why?]{Complex physical systems' behavior cannot be captured successfully using the delta-correlated forces used in Langevin Dynamics necessitating the use of GLD.}
+			\item[Why?]{Anomalous diffusion problems: sub-diffusion and super-diffusion can be captured only with GLE as Langevin model fails. Move from GLE model to Extended Variable GLE to capture the diffusion phenomenon}
 			
-			\item[Where?]{Applications of GLD include but are not restricted to micro-rheology, biological systems, nuclear quantum effects and systems in which anomalous diffusion arise.}
-			
-			\item[How?]{The theory behind extended variable GLD is studied and several numerical schemes are also tested to find out the optimal scheme w.r.t. convergence of the solution. \textcolor{red}{If possible, the sensitivity of the solution to the change in the parameters of the extended variable Prony series is also studied.}}
+			\begin{figure}[H]
+				\includegraphics[width=0.33\linewidth]{./Plots/Diffusion.pdf}
+				\caption{Anomalous Diffusion: Linear,Sub and Super Diffusive nature}
+			\end{figure}
 		\end{itemize}
 	\end{frame}
-	
+
+	\begin{frame}
+	\begin{itemize}
+		\item[Where?]{Applications of GLD include but are not restricted to micro-rheology, biological systems, nuclear quantum effects and systems in which anomalous diffusion arise.}
+		
+		\item[How?]{The theory behind extended variable GLD is studied. Accuracy of Implicit/Explicit Euler and Splitting Numerical schemes are also tested to find out the optimal scheme. Study the sensitivity of the solution to the changes in the parameters of the extended variable Prony series.}
+	\end{itemize}
+	\end{frame}
+
 	\begin{frame}
 		\section{Introduction}
 		\frametitle{Introduction}
 		
 		\quad \textbf{Langevin Dynamics} is a modeling technique in which the motion of a set of massive bodies in the presence of a bath of smaller solvent particles is directly integrated, while the dynamics of the solvent are "averaged out".
 		
+		\begin{figure}[h]
+			\includegraphics[width=0.35\linewidth]{./Plots/HeatBath.pdf}
+			\caption{Big particle (Blue) being bombarded by smaller solvent particles (Red)}
+			\label{eq:HeatBath}
+		\end{figure}
+		
+	\end{frame}
+		
+		\begin{comment}
+		
 		\quad This approximation leads to drastic reduction in computational cost as the dynamics of the solvent particles no longer need to be fully resolved. With Langevin dynamics, the effect of the solvent is reduced to an instantaneous drag force and a random delta-correlated force felt by the massive bodies.
 		
 		\quad The drawback with the conventional Langevin dynamics is that the underlying assumptions made to develop the scheme cannot be applied for all scenarios necessitating a more general treatment leading to the usage of \textbf{Generalized Langevin Dynamics}. 
-	\end{frame}
+		
+		\end{comment}
+		
 	
+	\begin{comment}
 	\begin{frame}
 		\section{Mathematical Fomulation}
 		\frametitle{Mathematical Formulation}
@@ -163,21 +188,32 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 		\end{gather}
 		where we have viewed the function $f(t)$ as being approximated by a Wiener increment. This system then leads to an approximate model referred to as \emph{Langevin Dynamics}. In our case, we will consider the \emph{Generalized Langevin Dynamics} where we don't approximate the delay-differential equation.
 	\end{frame}
-
+	\end{comment}
 	\begin{frame}
+		\footnotesize
 		\section{Generalized Langevin Equation}
 		\frametitle{Generalized Langevin Equation}
-		We already saw the case where the GLE equation was obtained as an intermediate step in deriving the Langevin dynamics. In some cases, we might want to model the properties of the heat bath and the resulting memory kernel thus necessitating us to use GLE for simulations.
-		
-		The equations of GLE are normally written in the form
-		\begin{gather}
-			d\BS{q} = \BS{M}^{-1} \BS{p} dt \\
+		\begin{itemize}
+			\item {GLE equations are based on \textit{Ornstein-Uhlenbeck} equations}
+			\item {Need to model memory kernel using extended variable methods like Prony series}
+		\end{itemize}
+	
+		\begin{block}{GLE Equations}
+			\begin{align}
+			d\BS{q} = \BS{M}^{-1} \BS{p} dt &&
 			d\BS{p} = -\nabla U(\BS{q}) dt - \int_{0}^{t} \BS{\Gamma}(t-s) \BS{p}(s) ds dt + d\BS{B}
-		\end{gather}
-		subject to initial conditions $\BS{q}(0) = \BS{q}_{0}$,$\BS{p}(0) = \BS{p}_{0}$. Here $\BS{\Gamma}(t) = (\gamma_{ij}(t))$ is a $N_c \times N_c$ matrix-valued function of $t$ which we refer to as the \textbf{\texttt{memory kernel}}. The term
-		\begin{gather}
-			\BS{F}_d = - \int_{0}^{t} \BS{\Gamma}(t-s) \BS{p}(s) ds dt
-		\end{gather}
-		represents a drag force acting on the system due to the interaction with the particles of the bath. $d\BS{B}$ is the increment of the colored-noise (non-Gaussian) stochastic process. Often this increment is treated formally as an impulse $\BS{R}(t)dt$, where $\BS{R}$ is referred to as a \textbf{\texttt{Random Force}} which is related to a Stochastic process.
+			\end{align}
+		\end{block}
+		
+		\begin{block}{Initial Conditions}
+			\begin{align}\BS{q}(0) = \BS{q}_{0} && \BS{p}(0) = \BS{p}_{0}\end{align}
+		\end{block}
+	
+		\begin{block}{Drag Force ($\BS{F}_{d}$) and Random Force $\BS{R}(t)$}
+			\begin{align}
+			\BS{F}_d = - \int_{0}^{t} \BS{\Gamma}(t-s) \BS{p}(s) ds dt && d \BS{B} = \BS{R}(t)dt
+			\end{align}
+		\end{block}
+		$\BS{\Gamma}(t) = (\gamma_{ij}(t))$ is a $N_c \times N_c$ matrix-valued function of $t$ which we refer to as the \textbf{\texttt{memory kernel}}.
 	\end{frame}
 \end{document}

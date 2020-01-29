@@ -1,0 +1,19 @@
+\documentclass[preview=true]{standalone}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\begin{document}
+	\begin{tikzpicture}
+		\begin{axis}
+		[xlabel=$t$,
+		ylabel=$x(t)$,
+		domain=0:1,
+		legend pos=north west]
+		\addplot[black,mark=diamond,thick] table[x=t,y=<x^2(t)>,col sep=comma] {./Linear.csv};
+		\addplot[red,mark=o,thick] table[x=t,y=<x^2(t)>,col sep=comma] {./Super.csv};
+		\addplot[blue,mark=square,thick] table[x=t,y=<x^2(t)>,col sep=comma] {./Sub.csv};
+		\legend{Linear Diffusion,Super Diffusion, Sub Diffusion}
+		\end{axis}
+	\end{tikzpicture}
+\end{document}

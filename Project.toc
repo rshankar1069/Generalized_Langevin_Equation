@@ -1,5 +1,3 @@
 \beamer@sectionintoc {1}{Scope of the Project}{3}{0}{1}
-\beamer@sectionintoc {2}{Introduction}{4}{0}{2}
-\beamer@sectionintoc {3}{Mathematical Fomulation}{5}{0}{3}
-\beamer@sectionintoc {4}{Models for Heat Baths and Langevin's Model for Brownian Motion}{6}{0}{4}
-\beamer@sectionintoc {5}{Generalized Langevin Equation}{11}{0}{5}
+\beamer@sectionintoc {2}{Introduction}{5}{0}{2}
+\beamer@sectionintoc {3}{Generalized Langevin Equation}{6}{0}{3}
