@@ -8,6 +8,7 @@
 \usepackage{subcaption}
 \usepackage{comment}
 \usepackage{wrapfig}
+\usepackage{color}
 
 \usefonttheme{professionalfonts}
 
@@ -19,13 +20,25 @@
 \useinnertheme{circles}
 \useoutertheme{tree}
 
+\addtobeamertemplate{navigation symbols}{}{%
+	\usebeamerfont{footline}%
+	\usebeamercolor[fg]{footline}%
+	\hspace{1em}%
+	\insertframenumber/\inserttotalframenumber
+}
+
+
 \setmainfont[Path=/usr/share/fonts/truetype/calibri/,
 BoldItalicFont=calibriz.ttf,
 BoldFont      =calibrib.ttf,
 ItalicFont    =calibrii.ttf]{calibri.ttf}
 
 \newcommand{\BS}[1]{\boldsymbol{#1}}
+\newcommand{\E}[1]{\mathbb{E}\left[ #1 \right]}
+\newcommand{\sqb}[1]{\left[ #1 \right]}
 
+\definecolor{burgundy}{RGB}{128,0,32}
+\definecolor{darkgreen}{RGB}{4,110,0}
 
 \title{Generalized Langevin Equation}
 \subtitle{Stochastic Differential Equations}
@@ -46,16 +59,18 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 
 	\begin{frame}
+		\small
 		\section{Scope of the Project}
 		\frametitle{Scope of the Project}
 		
 		\begin{itemize}
 			\item[What?]{Generalized Langevin Dynamics is a modeling technique that can be used to model anomalous diffusive phenomena observed in viscoelastic fluid flow and in biological systems.}
 			
-			\item[Why?]{Anomalous diffusion problems: sub-diffusion and super-diffusion can be captured only with GLE as Langevin model fails. Move from GLE model to Extended Variable GLE to capture the diffusion phenomenon}
+			\item[Why?]{Anomalous diffusion problems: Langevin model fails to capture sub-diffusive and super-diffusive behavior which the GLE succeeds in capturing. But GLE is \textit{Non-Markovian} i.e. \texttt{memory kernel} depends on the history of velocity. This issue is overcome by using Extended Variable GLE that considers a finite dimensional subspace for the \texttt{memory kernel}.}
 			
 			\begin{figure}[H]
-				\includegraphics[width=0.33\linewidth]{./Plots/Diffusion.pdf}
+				\centering
+				\includegraphics[width=0.35\linewidth]{./Plots/Diffusion.pdf}
 				\caption{Anomalous Diffusion: Linear,Sub and Super Diffusive nature}
 			\end{figure}
 		\end{itemize}
@@ -75,145 +90,95 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 		
 		\quad \textbf{Langevin Dynamics} is a modeling technique in which the motion of a set of massive bodies in the presence of a bath of smaller solvent particles is directly integrated, while the dynamics of the solvent are "averaged out".
 		
-		\begin{figure}[h]
-			\includegraphics[width=0.35\linewidth]{./Plots/HeatBath.pdf}
-			\caption{Big particle (Blue) being bombarded by smaller solvent particles (Red)}
-			\label{eq:HeatBath}
-		\end{figure}
-		
-	\end{frame}
-		
-		\begin{comment}
-		
-		\quad This approximation leads to drastic reduction in computational cost as the dynamics of the solvent particles no longer need to be fully resolved. With Langevin dynamics, the effect of the solvent is reduced to an instantaneous drag force and a random delta-correlated force felt by the massive bodies.
-		
-		\quad The drawback with the conventional Langevin dynamics is that the underlying assumptions made to develop the scheme cannot be applied for all scenarios necessitating a more general treatment leading to the usage of \textbf{Generalized Langevin Dynamics}. 
-		
-		\end{comment}
-		
-	
-	\begin{comment}
-	\begin{frame}
-		\section{Mathematical Fomulation}
-		\frametitle{Mathematical Formulation}
-		The Ornstein-Uhlenbeck SDE models the momentum of particles undergoing collisions.
-		\begin{gather}
-			dX = -\gamma X dt + \sigma dW \\
-			X = p
-		\end{gather}
-		The Ornstein-Uhlenbeck SDE equation samples, in the long term, the Gibbs-Boltzmann distribution associated to a single particle in a thermal bath at temperature $T$.
-		For a system with $N_{c}$ configurational variables we may write,
-		\begin{gather}
-			dp_{i} = -\gamma p_{i} dt + \sqrt{2 \gamma k_{B} T m_{i}} dW_{i} 
-		\end{gather}
-		where $W_{i}$ represents $N_{c}$ individual Wiener processes.
-		
-		If the Ornstein-Uhlenbeck SDE models the momentum of particles undergoing collisions, it can be complemented by a corresponding differential equation for the position of the form
-		\begin{gather}
-			dq = m^{-1} p dt
-		\end{gather}
-		to provide a full description of the motion. This is the key idea in Langevin's model for Brownian motion.
-	\end{frame}
-
-	\begin{frame}
-		\section{Models for Heat Baths and Langevin's Model for Brownian Motion}
-		\frametitle{Models for Heat Baths and Langevin's Model for Brownian Motion}
-		Let us derive the Langevin dynamics model for the special case of a heavy particle ($M = 1$) interacting with a large collection of light particles. We assume that we are given a system of $k$ coupled oscillators (a "heat bath") in contact with a distinguished particle (Here, the special "heavy particle"). The Hamiltonian is given by:
-		\begin{gather}
-			H = \frac{P^2}{2M} + \sum_{i=1}^{k} \frac{p_{i}^2}{2 \mu_{i}} + U(Q) + \frac{1}{2k} \sum_{i=1}^{k} (q_{i} - Q)^2
-		\end{gather}
-		where $Q$ and $P$ represent the position and momentum of the distinguished particle and $\{q_{i},p_{i}\}$ are the positions and momenta of the particles of the bath, $\mu_{i}$ giving the mass of the $i$th particle.
-		The equations of motion for the combined system are:
-		\begin{gather}
-			\dot{Q} = \frac{P}{M} = P, \quad \quad
-			\dot{P} = -U^{'}(Q) - k^{-1} \sum_{i=1}^{k} (Q-q_{i})
-			\label{eq:BigQP}
-		\end{gather}
-		where for $i = 1,2,\dots,k$
-		\begin{gather}
-			\dot{q_{i}} = \frac{p_{i}}{\mu_{i}}, \quad \quad
-			\dot{p_{i}} = \frac{Q-q_{i}}{k}
-			\label{eq:SmallQP}
-		\end{gather}
-	\end{frame}
-
-	\begin{frame}
-		Because the above system is linear, we can solve it analytically for $\{q_{i},p_{i}\}$ yielding:
-		\begin{gather}
-			q_{i}(t) = cos(\Omega_{i}t)q_{i}(0) + \Omega_{i}^{-1} sin(\Omega_{i}t)\frac{p_{i}(0)}{\mu_{i}} +  k^{-1}\mu_{i}^{-1} \int_{0}^{t} {\Omega_{i}^{-1} sin(\Omega_{i}(t-s))Q(s)ds}
-		\end{gather}
-		where $\Omega_{i} = (k \mu_{i})^{-\frac{1}{2}}$ is the frequency of the $i^{th}$ oscillator. Integrating by parts, we have
-		\begin{align}
-			\int_{0}^{t} \Omega_{i} sin(\Omega_{i}(t-s))Q(s)ds =& [cos(\Omega_{i}(t-s))Q(s)]_{0}^{t}
-			- \int_{0}^{t} cos(\Omega_{i} (t-s))P(s)ds \\
-			=& Q(t) - cos(\Omega_{i} t)Q(0) - \int_{0}^{t} cos(\Omega_{i}(t-s))P(s)ds
-		\end{align}
-		which leads to
-		\begin{gather}
-			\notag q_{i}(t) - Q(t) = cos(\Omega_{i}t)q_{i}(0) + \Omega_{i}^{-1} sin(\Omega_{i}t)\frac{p_{i}}{\mu_{i}} \\ - cos(\Omega_{i}t)Q(0) - \int_{0}^{t} cos(\Omega_{i}(t-s))P(s)ds
-		\end{gather}
-	\end{frame}
-
-	\begin{frame}
-		Inserting the above equation in Equation \eqref{eq:BigQP}, we get the reduced system given below
-		\begin{gather}
-			\dot{Q} = P \\
-			\dot{P} = -U^{'}(Q) - k^{-1} \sum_{i=1}^{k} (Q-q_{i}) = -U^{'}(Q) + f(t) - \int_{0}^{t} \psi (t-s)P(s)ds
-			\label{eq:delaydiff}
-		\end{gather}
-		where $f(t)$ and $\psi(t)$ are defined as
-		\begin{gather}
-			f(t) = -k^{-1} \sum_{i=1}^{k} [ cos(\Omega_{i}t)q_{i}(0) + \Omega_{i}^{-1} sin(\Omega_{i}t)\frac{p_{i}(0)}{\mu_{i}} - cos(\Omega_{i}t)Q(0)] \\
-			\psi(t) = k^{-1} \sum_{i=1}^{k} cos(\Omega_{i}t)
-		\end{gather}
-		Here $\psi(t)$ represents the \textbf{\texttt{Memory Kernel}} function. Different choices of sequences of $\Omega_{i}^{(k)}$ will lead to different appearances of the memory kernel function $\psi(t)$
-		\begin{block}{Note}
-			For large $k$ and for many choices of the frequencies $\Omega_{i}$ and the initial conditions $\{ q_{i}(0),p_{i}(0) \}$, function $f(t)$ will take on the character of a Wiener process; in fact the convergence can be shown in a weak sense.
-		\end{block}
-	\end{frame}
-
-	\begin{frame}
 		\begin{figure}[H]
-			\includegraphics[width=0.75\textwidth]{../Code/GeneralPlots/MemoryKernel.eps}
-			\label{fig:memorykernel}
-			\caption{Memory Kernel function $\psi(t)$ plotted for different frequencies $k$}
+			\flushleft
+			\begin{subfigure}[b]{0.35\linewidth}
+				\includegraphics[width=\linewidth]{./Plots/HeatBathAlt.eps}
+				\caption{Big particle interacting with the smaller particles.}
+				\label{fig:HeatBath}
+			\end{subfigure}
+			\hfill
+			\begin{subfigure}[b]{0.6\linewidth}
+				\includegraphics[width=\linewidth]{./Plots/ParticleEvolution.eps}
+				\caption{Evolution of a molecule over time due to interaction with smaller particles.}
+				\label{fig:ParticleEvolution}
+			\end{subfigure}
 		\end{figure}
-	\end{frame}
-
+		
+	\end{frame}		
+	
 	\begin{frame}
-		If sufficiently high frequency components are present, then the mass of the memory kernel is typically found to be localized around 0; in such a situation of rapid decay it is found that one may replace the function $\psi(t)$ by a Dirac-Delta function scaled by a positive coefficient $\gamma$; we say that the system is Markovian or memory-less in this situation and we replace the delay-differential equation \eqref{eq:delaydiff} by the SDEs
-		\begin{gather}
-			dQ = Pdt \\
-			dP = -U^{'}(Q)dt + \sigma dW - \gamma P dt
-		\end{gather}
-		where we have viewed the function $f(t)$ as being approximated by a Wiener increment. This system then leads to an approximate model referred to as \emph{Langevin Dynamics}. In our case, we will consider the \emph{Generalized Langevin Dynamics} where we don't approximate the delay-differential equation.
-	\end{frame}
-	\end{comment}
-	\begin{frame}
-		\footnotesize
+		%\footnotesize
 		\section{Generalized Langevin Equation}
 		\frametitle{Generalized Langevin Equation}
-		\begin{itemize}
-			\item {GLE equations are based on \textit{Ornstein-Uhlenbeck} equations}
-			\item {Need to model memory kernel using extended variable methods like Prony series}
-		\end{itemize}
+		\framesubtitle{Mathematical Model}
+		
+		GLE equations are based on \textit{Ornstein-Uhlenbeck} equations
 	
 		\begin{block}{GLE Equations}
 			\begin{align}
-			d\BS{q} = \BS{M}^{-1} \BS{p} dt &&
-			d\BS{p} = -\nabla U(\BS{q}) dt - \int_{0}^{t} \BS{\Gamma}(t-s) \BS{p}(s) ds dt + d\BS{B}
+			d\BS{X}(t) &= \BS{V}(t) dt \\
+			\BS{M} d\BS{V}(t) &= \BS{F}^{c}(\BS{X}(t)) dt - \int_{0}^{t} \BS{\Gamma}(t-s) \BS{V}(s) ds dt + \BS{F}^{r}(t)dt \\
+			\BS{X}(0) = \BS{X}_{0}, &\qquad \BS{V}(0) = \BS{V}_{0} \qquad (\text{Initial Conditions})
 			\end{align}
-		\end{block}
-		
-		\begin{block}{Initial Conditions}
-			\begin{align}\BS{q}(0) = \BS{q}_{0} && \BS{p}(0) = \BS{p}_{0}\end{align}
 		\end{block}
 	
-		\begin{block}{Drag Force ($\BS{F}_{d}$) and Random Force $\BS{R}(t)$}
+		\begin{block}{Temporally Non-Local Drag Force ($\BS{F}^{d}$)}
 			\begin{align}
-			\BS{F}_d = - \int_{0}^{t} \BS{\Gamma}(t-s) \BS{p}(s) ds dt && d \BS{B} = \BS{R}(t)dt
+			\BS{F}^{d} (t) = - \int_{0}^{t} \BS{\Gamma}(t-s) \BS{V}(s) ds dt
 			\end{align}
 		\end{block}
-		$\BS{\Gamma}(t) = (\gamma_{ij}(t))$ is a $N_c \times N_c$ matrix-valued function of $t$ which we refer to as the \textbf{\texttt{memory kernel}}.
+	\end{frame}
+
+	\begin{frame}
+		\small
+		\frametitle{Generalized Langevin Equation}
+		\framesubtitle{Mathematical Model}
+		\begin{table}[H]
+			\begin{tabular}{l l}
+				$\BS{F}^{c} : \mathcal{R}^{d N_{p}} \to \mathcal{R}^{d N_{p}}$ & Conservative Force \\
+				$\BS{F}^{r} : \mathcal{R}^{d N_{p}} \to \mathcal{R}^{d N_{p}}$ & Random Correlated Force \\
+				$\BS{M}$ & Diagonal Mass Matrix \\
+				$\BS{\Gamma}$ & Memory Kernel \\
+			\end{tabular}
+		\end{table}
+		\textbf{\textcolor{red}{Note:}} $\BS{F}^{r}$ and $\BS{F}^{d}$ are characterized by the \texttt{memory kernel} consistent with \textbf{FDT}.
+		\begin{theorem}
+			FDT (Fluctuation Dissipation Theorem) states that the equilibration to a temperature, $T$ requires that the two-time correlation of $\BS{F}^{r}(t)$ and $\BS{\Gamma}(t)$ be related as:
+			\begin{align}
+				\langle \BS{F}^{r}_{i}(t+s),\BS{F}^{r}_{j}(t) \rangle = k_{B} T \BS{\Gamma}(s) \delta_{ij}, \qquad s \geq 0
+			\end{align}
+		\end{theorem}
+		\begin{table}
+			\begin{tabular}{l l}
+				$k_{B}$ & Boltzmann's Constant \\
+				$\delta_{ij}$ & Kronecker Delta
+			\end{tabular}
+		\end{table}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Generalized Langevin Equation}
+		\framesubtitle{Model Complications}
+		\textbf{Discrete Problem:} \\
+		Solve for $\BS{X}(t)$ and $\BS{V}(t)$ at $N_{t}$ uniformly spaced discrete points in time.
+		
+		\textcolor{burgundy}{\textbf{Complications:}} \\
+		\begin{enumerate}
+			\item {\textcolor{burgundy}{Storage of subset of the time history of $\BS{V}(t)$.}}
+			\item {\textcolor{burgundy}{Sequence of $\BS{F}^{r}(t)$ given by \texttt{FDT}}}
+			\item {\textcolor{burgundy}{Numerical SDE solution should converge in distribution}}
+		\end{enumerate}
+		\textcolor{darkgreen}{\textbf{Solution:}}\\
+		\begin{enumerate}
+			\item {\textcolor{darkgreen}{Using extended variable \texttt{Prony Series} for \texttt{Memory Kernel}
+			$$ \BS{\Gamma}(t) = \sum_{k=1}^{N_{k}} \frac{c_{k}}{\tau_{k}} \exp \sqb{-\frac{t}{\tau_{k}}}, \qquad t \geq 0$$}}
+			\item {\textcolor{darkgreen}{Integration scheme to conserve moments of velocity.}}
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Generalized Langevin Equation}
+		\framesubtitle{Extended Variable GLE}
 	\end{frame}
 \end{document}

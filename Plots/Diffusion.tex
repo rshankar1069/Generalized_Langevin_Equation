@@ -2,12 +2,14 @@
 
 \usepackage{tikz}
 \usepackage{pgfplots}
+\usepackage{amssymb}
+\usepackage{amsmath}
 
 \begin{document}
 	\begin{tikzpicture}
 		\begin{axis}
 		[xlabel=$t$,
-		ylabel=$x(t)$,
+		ylabel=$\mathbb{E}(\boldsymbol{d}^{2}(t))$,
 		domain=0:1,
 		legend pos=north west]
 		\addplot[black,mark=diamond,thick] table[x=t,y=<x^2(t)>,col sep=comma] {./Linear.csv};
