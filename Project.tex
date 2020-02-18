@@ -9,6 +9,11 @@
 \usepackage{comment}
 \usepackage{wrapfig}
 \usepackage{color}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{empheq}
 
 \usefonttheme{professionalfonts}
 
@@ -36,9 +41,17 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 \newcommand{\BS}[1]{\boldsymbol{#1}}
 \newcommand{\E}[1]{\mathbb{E}\left[ #1 \right]}
 \newcommand{\sqb}[1]{\left[ #1 \right]}
+\newcommand{\rb}[1]{\left( #1 \right)}
+\newcommand{\angbrac}[1]{\left \langle #1 \right \rangle}
 
 \definecolor{burgundy}{RGB}{128,0,32}
 \definecolor{darkgreen}{RGB}{4,110,0}
+
+\definecolor{customblue}{rgb}{0.8,0.8,1}
+\newcommand*\bluebox[1]{\colorbox{customblue}{\hspace{1em}#1\hspace{1em}}}
+
+\definecolor{custompurple}{RGB}{255,179,179}
+\newcommand*\purplebox[1]{\colorbox{custompurple}{\hspace{1em}#1\hspace{1em}}}
 
 \title{Generalized Langevin Equation}
 \subtitle{Stochastic Differential Equations}
@@ -68,117 +81,165 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 			
 			\item[Why?]{Anomalous diffusion problems: Langevin model fails to capture sub-diffusive and super-diffusive behavior which the GLE succeeds in capturing. But GLE is \textit{Non-Markovian} i.e. \texttt{memory kernel} depends on the history of velocity. This issue is overcome by using Extended Variable GLE that considers a finite dimensional subspace for the \texttt{memory kernel}.}
 			
-			\begin{figure}[H]
-				\centering
-				\includegraphics[width=0.35\linewidth]{./Plots/Diffusion.pdf}
-				\caption{Anomalous Diffusion: Linear,Sub and Super Diffusive nature}
-			\end{figure}
+			\item[Where?]{Applications of GLE include but are not restricted to micro-rheology, biological systems, nuclear quantum effects and systems in which anomalous diffusion arise.}
+			
+			\item[How?]{Study Extended Variable GLE using Prony series approximation. Accuracy of Implicit/Explicit Euler and Splitting Numerical schemes are also tested to find out the optimal scheme. Study the sensitivity of the solution to the changes in the parameters of the extended variable GLE.}
+			
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}
-	\begin{itemize}
-		\item[Where?]{Applications of GLD include but are not restricted to micro-rheology, biological systems, nuclear quantum effects and systems in which anomalous diffusion arise.}
-		
-		\item[How?]{The theory behind extended variable GLD is studied. Accuracy of Implicit/Explicit Euler and Splitting Numerical schemes are also tested to find out the optimal scheme. Study the sensitivity of the solution to the changes in the parameters of the extended variable Prony series.}
-	\end{itemize}
-	\end{frame}
+	\begin{comment}
+		\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.35\linewidth]{./Plots/Diffusion.pdf}
+		\caption{Anomalous Diffusion: Linear,Sub and Super Diffusive nature}
+		\end{figure}
+	\end{comment}
 
 	\begin{frame}
-		\section{Introduction}
-		\frametitle{Introduction}
-		
-		\quad \textbf{Langevin Dynamics} is a modeling technique in which the motion of a set of massive bodies in the presence of a bath of smaller solvent particles is directly integrated, while the dynamics of the solvent are "averaged out".
-		
-		\begin{figure}[H]
-			\flushleft
-			\begin{subfigure}[b]{0.35\linewidth}
-				\includegraphics[width=\linewidth]{./Plots/HeatBathAlt.eps}
-				\caption{Big particle interacting with the smaller particles.}
-				\label{fig:HeatBath}
-			\end{subfigure}
-			\hfill
-			\begin{subfigure}[b]{0.6\linewidth}
-				\includegraphics[width=\linewidth]{./Plots/ParticleEvolution.eps}
-				\caption{Evolution of a molecule over time due to interaction with smaller particles.}
-				\label{fig:ParticleEvolution}
-			\end{subfigure}
-		\end{figure}
-		
+		\small
+		\section{Introduction to Generalized Langevin Equation}
+		\frametitle{Generalized Langevin Equation}
+		\framesubtitle{Introduction}
+		\begin{itemize}
+			\item[What?] {\textbf{Langevin Dynamics:} Large particles in a bath of small particles, motion of large particles directly integrated while the dynamics of small particles are "averaged out".}
+			\item[Why?] {\textit{Molecular Dynamics} simulations involving all particles is computationally expensive. Langevin Equation model is computationally cheaper.}
+		\end{itemize}
+		\begin{minipage}{0.35\linewidth}
+			\footnotesize
+			\begin{alertblock}{Drawback}
+				Anomalous diffusion problems arising due to \textit{Power Law} behavior of solute-solvent systems cannot be solved.
+			\end{alertblock}
+			\begin{exampleblock}{Solution}
+				\textit{Generalized Langevin Equation} (\textbf{GLE})
+			\end{exampleblock}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.6\linewidth}
+			\centering
+			\begin{figure}[H]
+				\begin{subfigure}[b]{0.45\linewidth}
+					\includegraphics[width=\linewidth]{./Plots/HeatBath.eps}
+					\caption{\footnotesize \textcolor{blue}{Big Particles} interacting with \textcolor{red}{Smaller Particles}}
+				\end{subfigure}
+				\begin{subfigure}[b]{0.5\linewidth}
+					\includegraphics[width=\linewidth]{./Plots/Diffusion.pdf}
+					\caption{\footnotesize Sub-diffusive and Super-diffusive behavior of solute-solvent systems}
+				\end{subfigure}
+			\end{figure}
+		\end{minipage}
 	\end{frame}		
 	
 	\begin{frame}
-		%\footnotesize
-		\section{Generalized Langevin Equation}
+		\small
 		\frametitle{Generalized Langevin Equation}
 		\framesubtitle{Mathematical Model}
 		
-		GLE equations are based on \textit{Ornstein-Uhlenbeck} equations
+		The velocity term of GLE is based on \textit{Ornstein-Uhlenbeck} process.
 	
 		\begin{block}{GLE Equations}
 			\begin{align}
 			d\BS{X}(t) &= \BS{V}(t) dt \\
-			\BS{M} d\BS{V}(t) &= \BS{F}^{c}(\BS{X}(t)) dt - \int_{0}^{t} \BS{\Gamma}(t-s) \BS{V}(s) ds dt + \BS{F}^{r}(t)dt \\
+			\BS{M} d\BS{V}(t) &= \underbrace{\vphantom{- \int_{0}^{t} \BS{\Gamma}(t-s) \BS{V}(s) ds dt}\BS{F}^{c}(\BS{X}(t)) dt}_{\text{\centering \begin{minipage}{1.5cm}
+					Conservative Force due to Potential
+			\end{minipage}}}
+			\underbrace{- \int_{0}^{t} \BS{\Gamma}(t-s) \BS{V}(s) ds dt}_{\text{\centering \begin{minipage}{1.5cm}
+				Temporally Non-Local Drag Force
+				\end{minipage}}\;\rb{\BS{F}^{d}}} + \underbrace{\vphantom{- \int_{0}^{t} \BS{\Gamma}(t-s) \BS{V}(s) ds dt}\BS{F}^{r}(t)dt}_{\text{\begin{minipage}{1.8cm}
+				Random Correlated Force given by \textit{FDT}
+				\end{minipage}}} \\
 			\BS{X}(0) = \BS{X}_{0}, &\qquad \BS{V}(0) = \BS{V}_{0} \qquad (\text{Initial Conditions})
 			\end{align}
 		\end{block}
-	
-		\begin{block}{Temporally Non-Local Drag Force ($\BS{F}^{d}$)}
-			\begin{align}
-			\BS{F}^{d} (t) = - \int_{0}^{t} \BS{\Gamma}(t-s) \BS{V}(s) ds dt
-			\end{align}
-		\end{block}
+		\begin{alertblock}{Note:}
+			$\BS{F}^{r}$ and $\BS{F}^{d}$ are characterized by the \texttt{memory kernel} consistent with \textbf{FDT}.
+		\end{alertblock}
 	\end{frame}
 
 	\begin{frame}
 		\small
 		\frametitle{Generalized Langevin Equation}
 		\framesubtitle{Mathematical Model}
-		\begin{table}[H]
-			\begin{tabular}{l l}
-				$\BS{F}^{c} : \mathcal{R}^{d N_{p}} \to \mathcal{R}^{d N_{p}}$ & Conservative Force \\
-				$\BS{F}^{r} : \mathcal{R}^{d N_{p}} \to \mathcal{R}^{d N_{p}}$ & Random Correlated Force \\
-				$\BS{M}$ & Diagonal Mass Matrix \\
-				$\BS{\Gamma}$ & Memory Kernel \\
-			\end{tabular}
-		\end{table}
-		\textbf{\textcolor{red}{Note:}} $\BS{F}^{r}$ and $\BS{F}^{d}$ are characterized by the \texttt{memory kernel} consistent with \textbf{FDT}.
 		\begin{theorem}
 			FDT (Fluctuation Dissipation Theorem) states that the equilibration to a temperature, $T$ requires that the two-time correlation of $\BS{F}^{r}(t)$ and $\BS{\Gamma}(t)$ be related as:
 			\begin{align}
-				\langle \BS{F}^{r}_{i}(t+s),\BS{F}^{r}_{j}(t) \rangle = k_{B} T \BS{\Gamma}(s) \delta_{ij}, \qquad s \geq 0
+				\angbrac{\BS{F}^{r}_{i}(t+s),\BS{F}^{r}_{j}(t)} = k_{B} T \BS{\Gamma}(s) \delta_{ij}, \qquad s \geq 0
 			\end{align}
 		\end{theorem}
-		\begin{table}
-			\begin{tabular}{l l}
-				$k_{B}$ & Boltzmann's Constant \\
-				$\delta_{ij}$ & Kronecker Delta
-			\end{tabular}
-		\end{table}
+		where $k_{B}$ is the Boltzmann's Constant and $\delta_{ij}$ is the Kronecker Delta.
+		\linebreak
+		
+		
+		\textcolor{red}{\textbf{Note:}}
+		\begin{itemize}
+			\item {$\BS{F}^{d}(t)$ depends on the velocity history unlike in \textit{Langevin Equation}} where it depends on the velocity at that instant.
+			\item {The random forces are not just delta correlated but are correlated by the \texttt{memory kernel}. \textcolor{darkgreen}{\texttt{Memory Kernel} choice and approximation important based on the problem to be studied.}}
+		\end{itemize}
 	\end{frame}
 	
 	\begin{frame}
 		\frametitle{Generalized Langevin Equation}
-		\framesubtitle{Model Complications}
-		\textbf{Discrete Problem:} \\
-		Solve for $\BS{X}(t)$ and $\BS{V}(t)$ at $N_{t}$ uniformly spaced discrete points in time.
+		\framesubtitle{Model Complications and Solutions}
+		\vspace{-0.8cm}
+		\begin{minipage}[t]{0.44\textwidth}
+			\begin{alertblock}{\textbf{Complications}}
+				\begin{enumerate}
+					\item {Storage of subset of the time history of $\BS{V}(t)$.}
+					\item {Sequence of $\BS{F}^{r}(t)$ given by \texttt{FDT}.}
+					\item {Numerical SDE solution should converge in distribution.}
+				\end{enumerate}
+			\end{alertblock}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{0.52\textwidth}
+			\centering
+			\begin{exampleblock}{\textbf{Solution}}
+				\begin{enumerate}
+					\item {Using extended variable \texttt{Prony Series} for \texttt{Memory Kernel}.
+					\scriptsize
+					\begin{align}
+					 \BS{\Gamma}(t) \approx \sum_{k=1}^{N_{k}} \frac{c_{k}}{\tau_{k}} \exp \sqb{-\frac{t}{\tau_{k}}}, \qquad t \geq 0 \end{align}
+					\normalsize
+					where $N_{k}$ is the number of terms used in approximating the \texttt{memory kernel}. }
+					\item {Using a suitable integration scheme for the numerical method.}
+				\end{enumerate}
+			\end{exampleblock}
+		\end{minipage}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Generalized Langevin Equation}
+		\framesubtitle{Model Complications and Solutions}
+		\small
+		\textcolor{blue}{\textbf{Why use extended variable Prony Series?}}
 		
-		\textcolor{burgundy}{\textbf{Complications:}} \\
-		\begin{enumerate}
-			\item {\textcolor{burgundy}{Storage of subset of the time history of $\BS{V}(t)$.}}
-			\item {\textcolor{burgundy}{Sequence of $\BS{F}^{r}(t)$ given by \texttt{FDT}}}
-			\item {\textcolor{burgundy}{Numerical SDE solution should converge in distribution}}
-		\end{enumerate}
-		\textcolor{darkgreen}{\textbf{Solution:}}\\
-		\begin{enumerate}
-			\item {\textcolor{darkgreen}{Using extended variable \texttt{Prony Series} for \texttt{Memory Kernel}
-			$$ \BS{\Gamma}(t) = \sum_{k=1}^{N_{k}} \frac{c_{k}}{\tau_{k}} \exp \sqb{-\frac{t}{\tau_{k}}}, \qquad t \geq 0$$}}
-			\item {\textcolor{darkgreen}{Integration scheme to conserve moments of velocity.}}
-		\end{enumerate}
+		\begin{itemize}
+			\item {Approximation of \texttt{memory kernel} to map {\textbf{Non-Markovian}} GLE to {\textbf{Markovian}} system of $N_{k}$ variables.}
+			\item {Typically used for modelling \textit{Power Law} based decay/growth as observed in sub/super diffusive systems.}
+		\end{itemize}
+		
+		\textcolor{blue}{\textbf{Importance of choice of integration scheme?}}
+		
+		\begin{itemize}
+			\item {Conservation of moments of variables of interest such as displacement and velocity (usual variables of interest for MD simulations)}
+			\item {Convergence of \textbf{GLE} to Langevin equation in the limit of small $\tau_{k}$ as observed in theory.}
+		\end{itemize}
 	\end{frame}
 
 	\begin{frame}
 		\frametitle{Generalized Langevin Equation}
 		\framesubtitle{Extended Variable GLE}
+		\footnotesize
+ 		%\textbf{Extended Variable GLE:}
+		\begin{empheq}[box=\bluebox]{align*}
+			m_{i} dV_{i}(t) &=  F_{i}^{c}(\BS{X}(t))dt + \sum_{k=1}^{N_{k}} S_{i,k} dt, \qquad dX_{i}(t) = V_{i}(t)dt\\
+			dS_{i,k}(t) &= -\frac{1}{\tau_{k}}S_{i,k}(t)dt - \frac{c_{k}}{\tau_{k}}V_{i}(t) dt + \frac{1}{\tau_{k}}\sqrt{2 k_{B} T c_{k}} dW_{i,k}(t) \\
+			S_{i,k}(t) &= Z_{i,k}(t) + F_{i,k}(t) \qquad Z_{i,k}(t) = -\int_{0}^{t} \frac{c_{k}}{\tau_{k}} \text{exp} \sqb{-\frac{\rb{t-s}}{\tau_{k}}} V_{i}(s) ds
+		\end{empheq}
+		\begin{empheq}[box=\purplebox]{align*}
+			dF_{i,k}(t) &= -\frac{1}{\tau_{k}}F_{i,k}(t) dt + \frac{1}{\tau_{k}} \sqrt{2 k_{B} T c_{k}} dW_{i,k}(t) && \\
+			\angbrac{F_{i,k}(t+s),F_{i,k}(t)} &= k_{B}T \frac{c_{k}}{\tau_{k}} \text{exp} \sqb{-\frac{s}{\tau_{k}}}, \quad s \geq 0 \\
+			F_{i}^{r}(t) &= \sum_{k=1}^{N_{k}} F_{i,k}(t)
+		\end{empheq}
 	\end{frame}
 \end{document}

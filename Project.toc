@@ -1,3 +1,2 @@
 \beamer@sectionintoc {1}{Scope of the Project}{3}{0}{1}
-\beamer@sectionintoc {2}{Introduction}{5}{0}{2}
-\beamer@sectionintoc {3}{Generalized Langevin Equation}{6}{0}{3}
+\beamer@sectionintoc {2}{Introduction to Generalized Langevin Equation}{4}{0}{2}

@@ -17,5 +17,8 @@
 		\addplot[blue,mark=square,thick] table[x=t,y=<x^2(t)>,col sep=comma] {./Sub.csv};
 		\legend{Linear Diffusion,Super Diffusion, Sub Diffusion}
 		\end{axis}
+		\draw node[anchor=south,rotate=45] at (5,4) {\footnotesize \textcolor{red}{$t^\alpha,\alpha > 1$}};
+		\draw node[anchor=south,rotate=23] at (5.5,2.95) {\footnotesize \textcolor{black}{$t^\alpha,\alpha = 1$}};
+		\draw node[anchor=north,rotate=10] at (5.5,1.95) {\footnotesize \textcolor{blue}{$t^\alpha,\alpha < 1$}};
 	\end{tikzpicture}
 \end{document}

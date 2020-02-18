@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.10.2)  29 JAN 2020 12:36
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.10.2)  14 FEB 2020 12:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -598,11 +598,11 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 Preview: Tightpage 0 0 0 0
 [1] (./Diffusion.aux) ) 
 Here is how much of TeX's memory you used:
- 22071 strings out of 493007
- 579087 string characters out of 6136719
+ 22096 strings out of 493007
+ 579420 string characters out of 6136719
  768448 words of memory out of 5000000
- 25666 multiletter control sequences out of 15000+600000
- 8104 words of font info for 32 fonts, out of 8000000 for 9000
+ 25682 multiletter control sequences out of 15000+600000
+ 11212 words of font info for 45 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  62i,16n,100p,725b,2141s stack positions out of 5000i,500n,10000p,200000b,80000s
 
