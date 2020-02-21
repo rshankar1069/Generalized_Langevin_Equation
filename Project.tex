@@ -11,9 +11,11 @@
 \usepackage{color}
 \usepackage{xcolor}
 \usepackage{mathtools}
+\usepackage{algorithmicx}
 \usepackage{algorithm}
-\usepackage[noend]{algpseudocode}
+\usepackage{algpseudocode}
 \usepackage{empheq}
+
 
 \usefonttheme{professionalfonts}
 
@@ -100,6 +102,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 		\small
 		\section{Introduction to Generalized Langevin Equation}
 		\frametitle{Generalized Langevin Equation}
+		\subsection{Introduction}
 		\framesubtitle{Introduction}
 		\begin{itemize}
 			\item[What?] {\textbf{Langevin Dynamics:} Large particles in a bath of small particles, motion of large particles directly integrated while the dynamics of small particles are "averaged out".}
@@ -133,6 +136,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\begin{frame}
 		\small
 		\frametitle{Generalized Langevin Equation}
+		\subsection{Mathematical Model}
 		\framesubtitle{Mathematical Model}
 		
 		The velocity term of GLE is based on \textit{Ornstein-Uhlenbeck} process.
@@ -161,7 +165,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 		\frametitle{Generalized Langevin Equation}
 		\framesubtitle{Mathematical Model}
 		\begin{theorem}
-			FDT (Fluctuation Dissipation Theorem) states that the equilibration to a temperature, $T$ requires that the two-time correlation of $\BS{F}^{r}(t)$ and $\BS{\Gamma}(t)$ be related as:
+			FDT (Fluctuation Dissipation Theorem) states that the equilibration to a temperature, $T$, requires that the two-time correlation of $\BS{F}^{r}(t)$ and $\BS{\Gamma}(t)$ be related as:
 			\begin{align}
 				\angbrac{\BS{F}^{r}_{i}(t+s),\BS{F}^{r}_{j}(t)} = k_{B} T \BS{\Gamma}(s) \delta_{ij}, \qquad s \geq 0
 			\end{align}
@@ -179,6 +183,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	
 	\begin{frame}
 		\frametitle{Generalized Langevin Equation}
+		\subsection{Model Complications and Solutions}
 		\framesubtitle{Model Complications and Solutions}
 		\vspace{-0.8cm}
 		\begin{minipage}[t]{0.44\textwidth}
@@ -228,18 +233,95 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 
 	\begin{frame}
 		\frametitle{Generalized Langevin Equation}
+		\subsection{Extended Variable GLE}
 		\framesubtitle{Extended Variable GLE}
-		\footnotesize
+		\vspace{-0.3cm}
  		%\textbf{Extended Variable GLE:}
-		\begin{empheq}[box=\bluebox]{align*}
-			m_{i} dV_{i}(t) &=  F_{i}^{c}(\BS{X}(t))dt + \sum_{k=1}^{N_{k}} S_{i,k} dt, \qquad dX_{i}(t) = V_{i}(t)dt\\
-			dS_{i,k}(t) &= -\frac{1}{\tau_{k}}S_{i,k}(t)dt - \frac{c_{k}}{\tau_{k}}V_{i}(t) dt + \frac{1}{\tau_{k}}\sqrt{2 k_{B} T c_{k}} dW_{i,k}(t) \\
-			S_{i,k}(t) &= Z_{i,k}(t) + F_{i,k}(t) \qquad Z_{i,k}(t) = -\int_{0}^{t} \frac{c_{k}}{\tau_{k}} \text{exp} \sqb{-\frac{\rb{t-s}}{\tau_{k}}} V_{i}(s) ds
-		\end{empheq}
-		\begin{empheq}[box=\purplebox]{align*}
-			dF_{i,k}(t) &= -\frac{1}{\tau_{k}}F_{i,k}(t) dt + \frac{1}{\tau_{k}} \sqrt{2 k_{B} T c_{k}} dW_{i,k}(t) && \\
-			\angbrac{F_{i,k}(t+s),F_{i,k}(t)} &= k_{B}T \frac{c_{k}}{\tau_{k}} \text{exp} \sqb{-\frac{s}{\tau_{k}}}, \quad s \geq 0 \\
-			F_{i}^{r}(t) &= \sum_{k=1}^{N_{k}} F_{i,k}(t)
-		\end{empheq}
+		\tiny
+		\begin{block}{Main Extended Variable GLE Equations}
+			\vspace{-0.3cm}
+			\begin{flalign}
+				m_{i} dV_{i}(t) &=  F_{i}^{c}(\BS{X}(t))dt + \sum_{k=1}^{N_{k}} S_{i,k} dt \\
+				dX_{i}(t) &= V_{i}(t)dt\\
+				dS_{i,k}(t) &= -\frac{1}{\tau_{k}}S_{i,k}(t)dt-\frac{c_{k}}{\tau_{k}}V_{i}(t) dt + \frac{1}{\tau_{k}}\sqrt{2 k_{B} T c_{k}} dW_{i,k}(t)
+			\end{flalign}
+		\end{block}
+		\begin{block}{Auxiliary Extended Variable GLE Equations}
+			\vspace{-0.3cm}
+			\begin{flalign}
+				S_{i,k}(t) &= Z_{i,k}(t) + F_{i,k}(t) \\
+				dZ_{i,k}(t) &= -\frac{1}{\tau_{k}} Z_{i,k}(t)dt - \frac{c_{k}}{\tau_{k}}V_{i}(t)dt &&
+				Z_{i,k}(t) = -\int_{0}^{t} \frac{c_{k}}{\tau_{k}} \text{exp} \sqb{-\frac{\rb{t-s}}{\tau_{k}}}V_{i}(s)ds \\
+				d F_{i, k}(t)&=-\frac{1}{\tau_{k}} F_{i, k}(t) d t +\frac{1}{\tau_{k}} \sqrt{2 {k}_{B} T c_{k}} d W_{i, k}(t) && \angbrac{F_{i,k}(t+s),F_{i,k}(t)} = k_{B}T\frac{c_{k}}{\tau_{k}} \text{exp}\sqb{-\frac{s}{\tau_{k}}} \\
+				&\quad && F_{i}^{r}(t) = \sum_{k=1}^{N_{k}} F_{i,k}(t)
+			\end{flalign}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}
+		\section{Numerical Schemes for Solving GLE}
+		\frametitle{Generalized Langevin Equation}
+		\subsection{Numerical Schemes}
+		\framesubtitle{Numerical Schemes}
+		\textcolor{blue}{\textbf{Numerical Schemes:}}
+		\begin{itemize}
+			\item {Explicit Euler Scheme.}
+			\item {Splitting Scheme.}
+		\end{itemize}
+		\textcolor{blue}{\textbf{Assumptions:}}
+		\begin{itemize}
+			\item {Uniform time-step size, $\Delta t$, where $N_{t} \Delta t = T_{\text{tot}}$ ($T_{\text{tot}}$ represents the total time of the simulation and $N_{t}$ represents the \# of time-steps.)}
+			\item {All $N_{p}$ particles are seeded with the same constant $\BS{X}(0)$ and $\BS{V}(0)$ (\textcolor{red}{\textbf{Note:}} We could also seed the initial conditions based on the p.d.f if known.)}
+			\item {The composite variable $S_{i,k}(t)$ is assumed to be zero initially.}
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Generalized Langevin Equation}
+		\framesubtitle{Numerical Schemes}
+			\vspace{-0.3cm}
+			\begin{algorithm}[H]
+				\scriptsize
+				\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+				\renewcommand{\algorithmicensure}{\textbf{Output:}}
+				\begin{algorithmic}[1]
+					\Require $\BS{X}(0)$,$\BS{V}(0)$,$\BS{S}(0)$
+					\Ensure $\BS{X}(t)$,$\BS{V}(t)$
+					\For{$n=0$ to $N_{t}$}
+					\tiny
+						\State $V_{i}^{n+1} = V_{i}^{n} + \frac{\Delta t}{m_{i}} F_{i}^{c} \rb{\BS{X}^{n}}+\frac{\Delta t}{m_{i}} \sum_{k=1}^{N_{k}}S_{i,k}^{n}$
+						\Comment Advance $\BS{V}(t)$ by a full step
+						\State $X_{i}^{n+1} = X_{i}^{n} + \Delta t V_{i}^{n}$
+						\Comment Advance $\BS{X}(t)$ by a full step
+						\State $S_{i,k}^{n+1} = \rb{1-\frac{\Delta t}{\tau_{k}}}S_{i,k}^{n}-\frac{c_{k}\Delta t}{\tau_{k}}V_{i}^{n} + \frac{1}{\tau_{k}}\sqrt{2 k_{B} T c_{k}}\Delta W_{i,k}$
+						\Comment Advance $\BS{S}(t)$ by a full step
+					\scriptsize
+					\EndFor
+				\end{algorithmic}
+				\caption*{\footnotesize Explicit Euler Scheme}
+			\end{algorithm}
+			\vspace{-0.75cm}
+			\begin{algorithm}[H]
+				\scriptsize
+				\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+				\renewcommand{\algorithmicensure}{\textbf{Output:}}
+				\begin{algorithmic}[1]
+					\Require $\BS{X}(0)$,$\BS{V}(0)$,$\BS{S}(0)$
+					\Ensure $\BS{X}(t)$,$\BS{V}(t)$
+					\For{$n=0$ to $N_{t}$}
+					\tiny
+					\State $V_{i}^{n+1/2} = V_{i}^{n} + \frac{\Delta t}{2m_{i}} F_{i}^{c} \rb{\BS{X}^{n}}+\frac{\Delta t}{2m_{i}} \sum_{k=1}^{N_{k}}S_{i,k}^{n}$
+					\Comment Advance $\BS{V}(t)$ by a half step
+					\State $X_{i}^{n+1} = X_{i}^{n} + \Delta t V_{i}^{n+1/2}$
+					\Comment Advance $\BS{X}(t)$ by a full step
+					\State $S_{i,k}^{n+1} = \theta_{k} S_{i,k}^{n}-\rb{1-\theta_{k}}c_{k}V_{i}^{n+1/2} + \alpha_{k}\sqrt{2 k_{B} T c_{k}}\Delta W_{i,k}$
+					\Comment Advance $\BS{S}(t)$ by a full step
+					\State $V_{i}^{n+1} = V_{i}^{n+1/2} + \frac{\Delta t}{2m_{i}} F_{i}^{c} \rb{\BS{X}^{n+1}}+\frac{\Delta t}{2m_{i}} \sum_{k=1}^{N_{k}}S_{i,k}^{n+1}$
+					\Comment Advance $\BS{V}(t)$ by a half step
+					\scriptsize
+					\EndFor
+				\end{algorithmic}
+				\caption*{\footnotesize Splitting Scheme}
+			\end{algorithm}
 	\end{frame}
 \end{document}

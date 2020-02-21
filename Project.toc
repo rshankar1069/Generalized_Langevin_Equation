@@ -1,2 +1,8 @@
 \beamer@sectionintoc {1}{Scope of the Project}{3}{0}{1}
 \beamer@sectionintoc {2}{Introduction to Generalized Langevin Equation}{4}{0}{2}
+\beamer@subsectionintoc {2}{1}{Introduction}{4}{0}{2}
+\beamer@subsectionintoc {2}{2}{Mathematical Model}{5}{0}{2}
+\beamer@subsectionintoc {2}{3}{Model Complications and Solutions}{7}{0}{2}
+\beamer@subsectionintoc {2}{4}{Extended Variable GLE}{9}{0}{2}
+\beamer@sectionintoc {3}{Numerical Schemes for Solving GLE}{10}{0}{3}
+\beamer@subsectionintoc {3}{1}{Numerical Schemes}{10}{0}{3}
