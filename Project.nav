@@ -39,8 +39,22 @@
 \headcommand {\beamer@framepages {10}{10}}
 \headcommand {\slideentry {3}{1}{1}{11/11}{}{0}}
 \headcommand {\beamer@framepages {11}{11}}
-\headcommand {\beamer@partpages {1}{11}}
 \headcommand {\beamer@subsectionpages {1}{11}}
-\headcommand {\beamer@sectionpages {1}{11}}
-\headcommand {\beamer@documentpages {11}}
-\headcommand {\gdef \inserttotalframenumber {11}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{12}{Comparison of Numerical Schemes}}
+\headcommand {\slideentry {3}{2}{0}{12/12}{}{0}}
+\headcommand {\beamer@framepages {12}{12}}
+\headcommand {\slideentry {3}{2}{1}{13/13}{}{0}}
+\headcommand {\beamer@framepages {13}{13}}
+\headcommand {\slideentry {3}{2}{2}{14/14}{}{0}}
+\headcommand {\beamer@framepages {14}{14}}
+\headcommand {\beamer@subsectionpages {1}{14}}
+\headcommand {\beamer@subsectionentry {0}{3}{3}{15}{Harmonic Potential Well}}
+\headcommand {\slideentry {3}{3}{0}{15/15}{}{0}}
+\headcommand {\beamer@framepages {15}{15}}
+\headcommand {\slideentry {3}{3}{1}{16/16}{}{0}}
+\headcommand {\beamer@framepages {16}{16}}
+\headcommand {\beamer@partpages {1}{16}}
+\headcommand {\beamer@subsectionpages {1}{16}}
+\headcommand {\beamer@sectionpages {1}{16}}
+\headcommand {\beamer@documentpages {16}}
+\headcommand {\gdef \inserttotalframenumber {16}}

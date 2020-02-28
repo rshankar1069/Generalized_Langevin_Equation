@@ -1,10 +1,11 @@
+clear all; clc; close all;
 %% Input file for the GLE Simulation - Explicit Euler Scheme
 
 kB = physconst("Boltzmann");                % Boltzmann constant
 Temp = 300;                                 % Temperature (in Kelvin)
 T = 10;                                     % Total time for which the simulation is run
-Np = 100;                                    % Number of particles considered for the simulation
-Nt = 10000;                                 % Number of time steps to consider
+Np = 1000;                                  % Number of particles considered for the simulation
+Nt = 1000;                                  % Number of time steps to consider
 del_t = T/Nt;                               % Time-step size used in the Euler scheme
 d = 1;                                      % Number of spatial dimensions to consider for each particle
 Nk = 1;                                     % Number of modes to consider for the Prony Series
@@ -12,48 +13,62 @@ m = 1;                                      % Mass of one individual particle
 M = m*eye(d*Np,d*Np);                       % Mass matrix involving all the particles
 S = zeros(d*Np,Nk);                         % Initial value of the composite variable
 
-velmag = 0.01;                               % Velocity Magnitude Scaling
+velmag = 0.01;                              % Velocity Magnitude Scaling
 Vt = velmag*ones(d*Np,Nt+1);                % Velocity matrices for all time steps, particles and dimensions
 Xt = zeros(d*Np,Nt+1);                      % Position matrices for all time steps, particles and dimensions
 
 randn('seed',100);                          % Seeding the random number generator to generate the same set of numbers
 
-% Fc = 0 (No Conservative Force acting on the particles)
+scalaropt= 'yes';                           % Choose between 'yes'/'no' to decide on scalar/vector Tau and c
+forceopt = 0;                               % Conservative force option 0/1 to choose between no force and harmonic oscillator force
 
-freq = 1;
-%Fc = @(x) -M*freq^2*x;
-Fc = @(x) 0*x;
-
-% For the simplified model we consider Tau = 0.5 and c = 0.5
-
-Tau = 1;
-c = 1;
-
-for i=2:(Nt+1)
-    del_W = sqrt(del_t)*randn(d*Np,Nk);         % Random number generation for the Wiener Process
-    Vt(:,i) = (M\Fc(Xt(:,i-1)))*del_t ...
-            + (M\sum(S,2))*del_t ...
-            + Vt(:,i-1);                        % Velocity Update Step
-    S = S + (1/Tau)*S*del_t ...
-        - (c/Tau)*repmat(Vt(:,i-1),1,Nk)*del_t ...
-        + (1/Tau)*sqrt(2*kB*Temp*c)*del_W;      % Composite variable Update Step
-    Xt(:,i) = Xt(:,i-1) + Vt(:,i-1)*del_t;      % Position Update Step
+switch(scalaropt)
+    case 'yes'
+        TauMag = 0.25;                                                     % Scaling value for Tau
+        cMag = 0.25;                                                       % Scaling value for c
+        Tau = TauMag*ones(Nk,1);                                        % Tau value used in the Prony series 
+        c = cMag*ones(Nk,1);                                            % c value used in the Prony series
+        for i=2:(Nt+1)
+            del_W = sqrt(del_t)*randn(d*Np,Nk);                         % Random number generation for the Wiener Process
+            Fc = conservativeForce(Xt(:,i-1),forceopt,M);               % Conservative Force Calculation
+            Vt(:,i) = (M\Fc)*del_t ...
+                    + (M\sum(S,2))*del_t ...
+                    + Vt(:,i-1);                                        % Velocity Update Step
+            for k=1:Nk
+                S(:,k) = S(:,k) + S(:,k)*(1/Tau(k))*del_t ...
+                - Vt(:,i-1)*(c(k)/Tau(k))*del_t ...
+                + (1/Tau(k))*sqrt(2*kB*Temp*c(k))*del_W(:,k);           % Composite variable Update Step
+            end              
+            Xt(:,i) = Xt(:,i-1) + Vt(:,i-1)*del_t;                      % Position Update Step
+        end
+    case 'no'
+        rand('seed',100);                                               % Seeding the Uniform distribution
+        Tau = rand(Nk,1);                                               % Tau value used in the Prony series 
+        c = rand(Nk,1);                                                 % c value used in the Prony series
+        for i=2:(Nt+1)
+            del_W = sqrt(del_t)*randn(d*Np,Nk);                         % Random number generation for the Wiener Process
+            Fc = conservativeForce(Xt(:,i-1),forceopt,M);               % Conservative Force Calculation
+            Vt(:,i) = (M\Fc)*del_t ...
+                    + (M\sum(S,2))*del_t ...
+                    + Vt(:,i-1);                                        % Velocity Update Step
+            for k=1:Nk
+                S(:,k) = S(:,k) + S(:,k)*(1/Tau(k))*del_t ...
+                - Vt(:,i-1)*(c(k)/Tau(k))*del_t ...
+                + (1/Tau(k))*sqrt(2*kB*Temp*c(k))*del_W(:,k);           % Composite variable Update Step
+            end
+            Xt(:,i) = Xt(:,i-1) + Vt(:,i-1)*del_t;                      % Position Update Step
+        end
+    otherwise
+        disp('Invalid Option');
+        quit(1);
 end
 
 % Normalized VAF calculation
 
-normVAF = zeros(1,Nt+1);
+normVAF = normalizedVAF(Vt,Nt);
 
-for i=1:(Nt+1)
-    normVAF(:,i) = mean(Vt(:,i).*Vt(:,1),1)/mean(Vt(:,1).*Vt(:,1),1);
-end
+% Error Bar Calculation
 
-figure(1);
-hold on;
-plot(linspace(0,T,Nt+1),Xt,"LineWidth",2,"Color","k","LineStyle",":");
-plot(linspace(0,T,Nt+1),Vt,"LineWidth",2,"Color","r","LineStyle",":");
-xlabel("$t$","Interpreter","latex","FontSize",14);
-title("Explicit Euler Integration Scheme","Interpreter","latex","FontSize",16);
+stderr = errorCalc(Vt);
 
-figure(2);
-plot(linspace(0,T,Nt+1),normVAF/max(abs(normVAF)),"LineWidth",2,"Color","b");
+Plot;

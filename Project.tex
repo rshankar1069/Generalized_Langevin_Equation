@@ -14,8 +14,11 @@
 \usepackage{algorithmicx}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{hyperref}
+\usepackage{cleveref}
 \usepackage{empheq}
 
+\beamertemplatenavigationsymbolsempty
 
 \usefonttheme{professionalfonts}
 
@@ -45,6 +48,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 \newcommand{\sqb}[1]{\left[ #1 \right]}
 \newcommand{\rb}[1]{\left( #1 \right)}
 \newcommand{\angbrac}[1]{\left \langle #1 \right \rangle}
+\newcommand{\norm}[1]{\left| \left| #1 \right| \right|}
 
 \definecolor{burgundy}{RGB}{128,0,32}
 \definecolor{darkgreen}{RGB}{4,110,0}
@@ -58,7 +62,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 \title{Generalized Langevin Equation}
 \subtitle{Stochastic Differential Equations}
 \author{Sankarasubramanian Ragunathan \newline \newline 389851}
-\institute{\textbf{RWTH Aachen}}
+\institute{\textbf{RWTH Aachen University}}
 \date{}
 
 
@@ -66,10 +70,11 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\begin{frame}
 		\titlepage
 		\centering
-		\includegraphics[width=0.2\textwidth]{RWTH_Aachen_University_Logo.eps}
+		\includegraphics[width=0.25\textwidth]{RWTH_Aachen_University_Logo.eps}
 	\end{frame}
 
 	\begin{frame}
+	\frametitle{Agenda}
 		\tableofcontents
 	\end{frame}
 
@@ -263,18 +268,35 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 		\frametitle{Generalized Langevin Equation}
 		\subsection{Numerical Schemes}
 		\framesubtitle{Numerical Schemes}
+		\footnotesize
 		\textcolor{blue}{\textbf{Numerical Schemes:}}
 		\begin{itemize}
 			\item {Explicit Euler Scheme.}
 			\item {Splitting Scheme.}
 		\end{itemize}
-		\textcolor{blue}{\textbf{Assumptions:}}
+		\begin{alertblock}{Which numerical scheme to choose for solving the problem?}
+			{Scheme that is able to conserve the first and second moments of quantities of interest i.e. $\BS{V}(t)$ and $\BS{X}(t)$.}
+		\end{alertblock}
+		\textcolor{blue}{\textbf{Implementation Details:}}
 		\begin{itemize}
 			\item {Uniform time-step size, $\Delta t$, where $N_{t} \Delta t = T_{\text{tot}}$ ($T_{\text{tot}}$ represents the total time of the simulation and $N_{t}$ represents the \# of time-steps.)}
 			\item {All $N_{p}$ particles are seeded with the same constant $\BS{X}(0)$ and $\BS{V}(0)$ (\textcolor{red}{\textbf{Note:}} We could also seed the initial conditions based on the p.d.f if known.)}
 			\item {The composite variable $S_{i,k}(t)$ is assumed to be zero initially.}
 		\end{itemize}
 	\end{frame}
+
+\begin{comment}
+	\begin{frame}
+		\frametitle{Generalized Langevin Equation}
+		\framesubtitle{Numerical Schemes}
+		\textcolor{blue}{\textbf{Implementation Details:}}
+		\begin{itemize}
+			\item {Uniform time-step size, $\Delta t$, where $N_{t} \Delta t = T_{\text{tot}}$ ($T_{\text{tot}}$ represents the total time of the simulation and $N_{t}$ represents the \# of time-steps.)}
+			\item {All $N_{p}$ particles are seeded with the same constant $\BS{X}(0)$ and $\BS{V}(0)$ (\textcolor{red}{\textbf{Note:}} We could also seed the initial conditions based on the p.d.f if known.)}
+			\item {The composite variable $S_{i,k}(t)$ is assumed to be zero initially.}
+		\end{itemize}
+	\end{frame}
+\end{comment}
 	
 	\begin{frame}
 		\frametitle{Generalized Langevin Equation}
@@ -323,5 +345,108 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 				\end{algorithmic}
 				\caption*{\footnotesize Splitting Scheme}
 			\end{algorithm}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Generalized Langevin Equation}
+		\subsection{Comparison of Numerical Schemes}
+		\framesubtitle{Comparison of Numerical Schemes}
+		\textcolor{blue}{\textbf{Case Study:}}
+		\begin{itemize}
+			\item {One dimensional problem, $d = 1$}
+			\item {Single mode in the Prony series approximation, $N_{k} = 1$}
+			\item {Zero conservative force acting on the particles, $\BS{F}^{c}\rb{\BS{X}(t)} = 0$}
+		\end{itemize}
+		The case study is simulated using both numerical schemes, \textit{Explicit Euler} and \textit{Splitting Method}, for three different $\tau$ and $c$ values in the \texttt{Prony Series} approximation (\Cref{tab:cTauBaseCase})
+		\begin{table}[H]
+			\begin{tabular}{| p{2.6cm} | c | c |}
+				\hline
+				\textbf{Type of System} & $\BS{c}$ & $\BS{\tau}$ \\
+				\hline
+				Under-damped & 1 & 1 \\
+				Critically-damped & 0.5 & 0.5 \\
+				Over-damped & 0.25 & 0.25 \\
+				\hline
+			\end{tabular}
+			\caption{$c$ and $\tau$ values used for the case study}
+			\label{tab:cTauBaseCase}
+		\end{table}
+	\end{frame}
+
+	\begin{frame}
+		\footnotesize
+		\frametitle{Generalized Langevin Equation}
+		\framesubtitle{Comparison of Numerical Schemes - Results}
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[b]{0.326\linewidth}
+				\includegraphics[width=\linewidth]{./Plots/CaseStudy/Underdamped.eps}
+				\caption{Under-damped}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.326\linewidth}
+				\includegraphics[width=\linewidth]{./Plots/CaseStudy/Criticallydamped.eps}
+				\caption{Critically-damped}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.326\linewidth}
+				\includegraphics[width=\linewidth]{./Plots/CaseStudy/Overdamped.eps}
+				\caption{Over-damped}
+			\end{subfigure}
+			\caption{Comparison of different numerical schemes w.r.t. Normalized VAF}
+		\end{figure}
+		\vspace{-0.5cm}
+		\begin{alertblock}{Normalized VAF (\textit{Velocity Autocorrelation Function})}
+			\begin{align}
+				\frac{\angbrac{\BS{V}(t),\BS{V}(0)}}{\angbrac{\BS{V}(0),\BS{V}(0)}} = 
+				\begin{cases}
+				\text{exp} \sqb{-\frac{t}{2 \tau}} \rb{\cos\rb{\Omega t} + \frac{1}{2\tau\Omega} \sin\rb{\Omega t}}  &\text{for} \; \Omega \neq 0 \\
+				\text{exp} \sqb{-\frac{t}{2 \tau}} \rb{1 + \frac{t}{2 \tau}} &\text{for} \; \Omega = 0
+				\end{cases}
+			\end{align}
+			\begin{gather}
+				\notag
+				\Omega = \sqrt{c/\tau - 1/4\tau^{2}}
+			\end{gather}
+		\end{alertblock}
+	\end{frame}
+	\begin{frame}
+		\frametitle{Generalized Langevin Equation}
+		\framesubtitle{Comparison of Numerical Schemes - Results}
+		\large
+		\textcolor{blue}{\textbf{Observation:}}
+		{Explicit Euler scheme produces wrong results for the \texttt{Normalized VAF} as when compared to the Splitting scheme.} \\
+		\vspace{0.25cm}
+		\textcolor{blue}{\textbf{Solution:}}
+		{Using the Splitting scheme as the preferred integration scheme for all proceeding cases.}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Generalized Langevin Equation}
+		\subsection{Harmonic Potential Well}
+		\framesubtitle{Harmonic Potential Well}
+		\begin{block}{Harmonic Potential Well GLE}
+			\footnotesize
+			\begin{align}
+				d\BS{V}(t) = \underbrace{\vphantom{\int_{0}^{t} \frac{\gamma_{\lambda}}{\Gamma_{0} \rb{1-\lambda}}\rb{t-s}^{-\lambda} \BS{V}(s) ds dt} -\omega^{2}_{0} \BS{X}(t)}_{\text{\begin{minipage}{0.165\linewidth}
+						Conservative Force arising from Harmonic Potential
+						\end{minipage}}}dt - \underbrace{\int_{0}^{t} \frac{\gamma_{\lambda}}{\Gamma_{0} \rb{1-\lambda}}\rb{t-s}^{-\lambda}}_{\text{\begin{minipage}{0.165\linewidth}
+						\textit{Power Law} decay \texttt{memory kernel} function
+						\end{minipage}}} \BS{V}(s) ds dt + \BS{M}^{-1} \BS{F}^{r}(t) dt
+						\label{eq:HarmonicGLE}
+			\end{align}
+		\end{block}
+		\textcolor{blue}{\textbf{Question?}} \\ Approximation of the \texttt{memory kernel} in \Cref{eq:HarmonicGLE} using Prony series \\
+		\textcolor{blue}{\textbf{Answer:}} \\
+		\textit{log}-spaced values for $\tau_{k}$ from $\Delta t/10$ to $10N_{t}\Delta t$ and then linearly fitting $c_{k}$ i.e. $\min_{\BS{x}} \norm{\BS{A}\cdot \BS{x}-\BS{b}}^{2}, \quad \BS{x} = \left\{ c_{k} \right\} \quad \forall k=1, \cdots, N_{k}$
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Generalized Langevin Equation}
+		\framesubtitle{Harmonic Potential Well - Parameter Fitting}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.725\linewidth]{./Plots/ParameterFittingExample/paramFit.eps}
+			\caption{A Prony series fit of the \textit{power law} memory kernel in \cref{eq:HarmonicGLE} for
+				$\gamma_{\lambda} = 1$, $\lambda = 0.5$ for different $N_{k}$}
+		\end{figure}
 	\end{frame}
 \end{document}

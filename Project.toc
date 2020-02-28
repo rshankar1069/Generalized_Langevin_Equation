@@ -6,3 +6,5 @@
 \beamer@subsectionintoc {2}{4}{Extended Variable GLE}{9}{0}{2}
 \beamer@sectionintoc {3}{Numerical Schemes for Solving GLE}{10}{0}{3}
 \beamer@subsectionintoc {3}{1}{Numerical Schemes}{10}{0}{3}
+\beamer@subsectionintoc {3}{2}{Comparison of Numerical Schemes}{12}{0}{3}
+\beamer@subsectionintoc {3}{3}{Harmonic Potential Well}{15}{0}{3}
