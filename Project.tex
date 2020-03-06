@@ -17,6 +17,8 @@
 \usepackage{hyperref}
 \usepackage{cleveref}
 \usepackage{empheq}
+\usepackage{mathrsfs,euscript}
+\usepackage{tcolorbox}
 
 \beamertemplatenavigationsymbolsempty
 
@@ -37,6 +39,13 @@
 	\insertframenumber/\inserttotalframenumber
 }
 
+\setbeamertemplate{headline}{%
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{palette quaternary}%
+		\end{beamercolorbox}%
+	}
+}
 
 \setmainfont[Path=/usr/share/fonts/truetype/calibri/,
 BoldItalicFont=calibriz.ttf,
@@ -47,6 +56,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 \newcommand{\E}[1]{\mathbb{E}\left[ #1 \right]}
 \newcommand{\sqb}[1]{\left[ #1 \right]}
 \newcommand{\rb}[1]{\left( #1 \right)}
+\newcommand{\cb}[1]{\left \{ #1 \right \}}
 \newcommand{\angbrac}[1]{\left \langle #1 \right \rangle}
 \newcommand{\norm}[1]{\left| \left| #1 \right| \right|}
 
@@ -75,6 +85,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 
 	\begin{frame}
 	\frametitle{Agenda}
+		\footnotesize
 		\tableofcontents
 	\end{frame}
 
@@ -95,20 +106,11 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 		\end{itemize}
 	\end{frame}
 
-	\begin{comment}
-		\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.35\linewidth]{./Plots/Diffusion.pdf}
-		\caption{Anomalous Diffusion: Linear,Sub and Super Diffusive nature}
-		\end{figure}
-	\end{comment}
-
 	\begin{frame}
 		\small
 		\section{Introduction to Generalized Langevin Equation}
-		\frametitle{Generalized Langevin Equation}
 		\subsection{Introduction}
-		\framesubtitle{Introduction}
+		\frametitle{Introduction}
 		\begin{itemize}
 			\item[What?] {\textbf{Langevin Dynamics:} Large particles in a bath of small particles, motion of large particles directly integrated while the dynamics of small particles are "averaged out".}
 			\item[Why?] {\textit{Molecular Dynamics} simulations involving all particles is computationally expensive. Langevin Equation model is computationally cheaper.}
@@ -140,9 +142,8 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	
 	\begin{frame}
 		\small
-		\frametitle{Generalized Langevin Equation}
 		\subsection{Mathematical Model}
-		\framesubtitle{Mathematical Model}
+		\frametitle{Mathematical Model}
 		
 		The velocity term of GLE is based on \textit{Ornstein-Uhlenbeck} process.
 	
@@ -167,15 +168,14 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 
 	\begin{frame}
 		\small
-		\frametitle{Generalized Langevin Equation}
-		\framesubtitle{Mathematical Model}
+		\frametitle{Mathematical Model}
 		\begin{theorem}
 			FDT (Fluctuation Dissipation Theorem) states that the equilibration to a temperature, $T$, requires that the two-time correlation of $\BS{F}^{r}(t)$ and $\BS{\Gamma}(t)$ be related as:
 			\begin{align}
-				\angbrac{\BS{F}^{r}_{i}(t+s),\BS{F}^{r}_{j}(t)} = k_{B} T \BS{\Gamma}(s) \delta_{ij}, \qquad s \geq 0
+				\angbrac{\BS{F}^{r}_{i}(t+s),\BS{F}^{r}_{j}(t)} = \text{k}_{\text{B}} T \BS{\Gamma}(s) \delta_{ij}, \qquad s \geq 0
 			\end{align}
 		\end{theorem}
-		where $k_{B}$ is the Boltzmann's Constant and $\delta_{ij}$ is the Kronecker Delta.
+		where $\text{k}_{\text{B}}$ is the Boltzmann's Constant and $\delta_{ij}$ is the Kronecker Delta.
 		\linebreak
 		
 		
@@ -187,9 +187,8 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 	
 	\begin{frame}
-		\frametitle{Generalized Langevin Equation}
 		\subsection{Model Complications and Solutions}
-		\framesubtitle{Model Complications and Solutions}
+		\frametitle{Model Complications and Solutions}
 		\vspace{-0.8cm}
 		\begin{minipage}[t]{0.44\textwidth}
 			\begin{alertblock}{\textbf{Complications}}
@@ -218,8 +217,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Generalized Langevin Equation}
-		\framesubtitle{Model Complications and Solutions}
+		\frametitle{Model Complications and Solutions}
 		\small
 		\textcolor{blue}{\textbf{Why use extended variable Prony Series?}}
 		
@@ -237,9 +235,8 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Generalized Langevin Equation}
 		\subsection{Extended Variable GLE}
-		\framesubtitle{Extended Variable GLE}
+		\frametitle{Extended Variable GLE}
 		\vspace{-0.3cm}
  		%\textbf{Extended Variable GLE:}
 		\tiny
@@ -248,7 +245,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 			\begin{flalign}
 				m_{i} dV_{i}(t) &=  F_{i}^{c}(\BS{X}(t))dt + \sum_{k=1}^{N_{k}} S_{i,k} dt \\
 				dX_{i}(t) &= V_{i}(t)dt\\
-				dS_{i,k}(t) &= -\frac{1}{\tau_{k}}S_{i,k}(t)dt-\frac{c_{k}}{\tau_{k}}V_{i}(t) dt + \frac{1}{\tau_{k}}\sqrt{2 k_{B} T c_{k}} dW_{i,k}(t)
+				dS_{i,k}(t) &= -\frac{1}{\tau_{k}}S_{i,k}(t)dt-\frac{c_{k}}{\tau_{k}}V_{i}(t) dt + \frac{1}{\tau_{k}}\sqrt{2 \text{k}_{\text{B}} T c_{k}} dW_{i,k}(t)
 			\end{flalign}
 		\end{block}
 		\begin{block}{Auxiliary Extended Variable GLE Equations}
@@ -257,7 +254,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 				S_{i,k}(t) &= Z_{i,k}(t) + F_{i,k}(t) \\
 				dZ_{i,k}(t) &= -\frac{1}{\tau_{k}} Z_{i,k}(t)dt - \frac{c_{k}}{\tau_{k}}V_{i}(t)dt &&
 				Z_{i,k}(t) = -\int_{0}^{t} \frac{c_{k}}{\tau_{k}} \text{exp} \sqb{-\frac{\rb{t-s}}{\tau_{k}}}V_{i}(s)ds \\
-				d F_{i, k}(t)&=-\frac{1}{\tau_{k}} F_{i, k}(t) d t +\frac{1}{\tau_{k}} \sqrt{2 {k}_{B} T c_{k}} d W_{i, k}(t) && \angbrac{F_{i,k}(t+s),F_{i,k}(t)} = k_{B}T\frac{c_{k}}{\tau_{k}} \text{exp}\sqb{-\frac{s}{\tau_{k}}} \\
+				d F_{i, k}(t)&=-\frac{1}{\tau_{k}} F_{i, k}(t) d t +\frac{1}{\tau_{k}} \sqrt{2 {k}_{B} T c_{k}} d W_{i, k}(t) && \angbrac{F_{i,k}(t+s),F_{i,k}(t)} = \text{k}_{\text{B}}T\frac{c_{k}}{\tau_{k}} \text{exp}\sqb{-\frac{s}{\tau_{k}}} \\
 				&\quad && F_{i}^{r}(t) = \sum_{k=1}^{N_{k}} F_{i,k}(t)
 			\end{flalign}
 		\end{block}
@@ -265,9 +262,8 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	
 	\begin{frame}
 		\section{Numerical Schemes for Solving GLE}
-		\frametitle{Generalized Langevin Equation}
 		\subsection{Numerical Schemes}
-		\framesubtitle{Numerical Schemes}
+		\frametitle{Numerical Schemes}
 		\footnotesize
 		\textcolor{blue}{\textbf{Numerical Schemes:}}
 		\begin{itemize}
@@ -275,7 +271,9 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 			\item {Splitting Scheme.}
 		\end{itemize}
 		\begin{alertblock}{Which numerical scheme to choose for solving the problem?}
-			{Scheme that is able to conserve the first and second moments of quantities of interest i.e. $\BS{V}(t)$ and $\BS{X}(t)$.}
+			{Scheme that is able to conserve the first and second moments of quantities of interest i.e. $\BS{V}(t)$ and $\BS{X}(t)$.} \\
+			\vspace{0.2cm}
+			\textbf{Reason: } General observables/physical quantities that are measured to understand the behavior of a system. For example, \textit{Mean Square Displacement}(\texttt{MSD}) in microrheology simulations.
 		\end{alertblock}
 		\textcolor{blue}{\textbf{Implementation Details:}}
 		\begin{itemize}
@@ -284,23 +282,9 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 			\item {The composite variable $S_{i,k}(t)$ is assumed to be zero initially.}
 		\end{itemize}
 	\end{frame}
-
-\begin{comment}
-	\begin{frame}
-		\frametitle{Generalized Langevin Equation}
-		\framesubtitle{Numerical Schemes}
-		\textcolor{blue}{\textbf{Implementation Details:}}
-		\begin{itemize}
-			\item {Uniform time-step size, $\Delta t$, where $N_{t} \Delta t = T_{\text{tot}}$ ($T_{\text{tot}}$ represents the total time of the simulation and $N_{t}$ represents the \# of time-steps.)}
-			\item {All $N_{p}$ particles are seeded with the same constant $\BS{X}(0)$ and $\BS{V}(0)$ (\textcolor{red}{\textbf{Note:}} We could also seed the initial conditions based on the p.d.f if known.)}
-			\item {The composite variable $S_{i,k}(t)$ is assumed to be zero initially.}
-		\end{itemize}
-	\end{frame}
-\end{comment}
 	
 	\begin{frame}
-		\frametitle{Generalized Langevin Equation}
-		\framesubtitle{Numerical Schemes}
+		\frametitle{Numerical Schemes}
 			\vspace{-0.3cm}
 			\begin{algorithm}[H]
 				\scriptsize
@@ -315,12 +299,12 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 						\Comment Advance $\BS{V}(t)$ by a full step
 						\State $X_{i}^{n+1} = X_{i}^{n} + \Delta t V_{i}^{n}$
 						\Comment Advance $\BS{X}(t)$ by a full step
-						\State $S_{i,k}^{n+1} = \rb{1-\frac{\Delta t}{\tau_{k}}}S_{i,k}^{n}-\frac{c_{k}\Delta t}{\tau_{k}}V_{i}^{n} + \frac{1}{\tau_{k}}\sqrt{2 k_{B} T c_{k}}\Delta W_{i,k}$
+						\State $S_{i,k}^{n+1} = \rb{1-\frac{\Delta t}{\tau_{k}}}S_{i,k}^{n}-\frac{c_{k}\Delta t}{\tau_{k}}V_{i}^{n} + \frac{1}{\tau_{k}}\sqrt{2 \text{k}_{\text{B}} T c_{k}}\Delta W_{i,k}$
 						\Comment Advance $\BS{S}(t)$ by a full step
 					\scriptsize
 					\EndFor
 				\end{algorithmic}
-				\caption*{\footnotesize Explicit Euler Scheme}
+				\caption*{Explicit Euler Scheme}
 			\end{algorithm}
 			\vspace{-0.75cm}
 			\begin{algorithm}[H]
@@ -336,21 +320,20 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 					\Comment Advance $\BS{V}(t)$ by a half step
 					\State $X_{i}^{n+1} = X_{i}^{n} + \Delta t V_{i}^{n+1/2}$
 					\Comment Advance $\BS{X}(t)$ by a full step
-					\State $S_{i,k}^{n+1} = \theta_{k} S_{i,k}^{n}-\rb{1-\theta_{k}}c_{k}V_{i}^{n+1/2} + \alpha_{k}\sqrt{2 k_{B} T c_{k}}\Delta W_{i,k}$
+					\State $S_{i,k}^{n+1} = \theta_{k} S_{i,k}^{n}-\rb{1-\theta_{k}}c_{k}V_{i}^{n+1/2} + \alpha_{k}\sqrt{2 \text{k}_{\text{B}} T c_{k}}\Delta W_{i,k}$
 					\Comment Advance $\BS{S}(t)$ by a full step
 					\State $V_{i}^{n+1} = V_{i}^{n+1/2} + \frac{\Delta t}{2m_{i}} F_{i}^{c} \rb{\BS{X}^{n+1}}+\frac{\Delta t}{2m_{i}} \sum_{k=1}^{N_{k}}S_{i,k}^{n+1}$
 					\Comment Advance $\BS{V}(t)$ by a half step
 					\scriptsize
 					\EndFor
 				\end{algorithmic}
-				\caption*{\footnotesize Splitting Scheme}
+				\caption*{Splitting Scheme}
 			\end{algorithm}
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Generalized Langevin Equation}
 		\subsection{Comparison of Numerical Schemes}
-		\framesubtitle{Comparison of Numerical Schemes}
+		\frametitle{Comparison of Numerical Schemes}
 		\textcolor{blue}{\textbf{Case Study:}}
 		\begin{itemize}
 			\item {One dimensional problem, $d = 1$}
@@ -375,8 +358,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 
 	\begin{frame}
 		\footnotesize
-		\frametitle{Generalized Langevin Equation}
-		\framesubtitle{Comparison of Numerical Schemes - Results}
+		\frametitle{Comparison of Numerical Schemes - Results}
 		\begin{figure}[H]
 			\centering
 			\begin{subfigure}[b]{0.326\linewidth}
@@ -401,28 +383,28 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 				\text{exp} \sqb{-\frac{t}{2 \tau}} \rb{\cos\rb{\Omega t} + \frac{1}{2\tau\Omega} \sin\rb{\Omega t}}  &\text{for} \; \Omega \neq 0 \\
 				\text{exp} \sqb{-\frac{t}{2 \tau}} \rb{1 + \frac{t}{2 \tau}} &\text{for} \; \Omega = 0
 				\end{cases}
+				\label{eq:oneModeExactVAF}
 			\end{align}
 			\begin{gather}
 				\notag
 				\Omega = \sqrt{c/\tau - 1/4\tau^{2}}
 			\end{gather}
+			\textbf{Note:} VAF is for one mode Prony series approx. without any conservative force terms.
 		\end{alertblock}
 	\end{frame}
 	\begin{frame}
-		\frametitle{Generalized Langevin Equation}
-		\framesubtitle{Comparison of Numerical Schemes - Results}
+		\frametitle{Comparison of Numerical Schemes - Results}
 		\large
 		\textcolor{blue}{\textbf{Observation:}}
-		{Explicit Euler scheme produces wrong results for the \texttt{Normalized VAF} as when compared to the Splitting scheme.} \\
+		{Explicit Euler scheme produces wrong results for the \texttt{Normalized VAF} as when compared to the Splitting scheme} (\textit{\textbf{Reason:} Independent updates for $\BS{X}(t)$ and $\BS{V}(t)$ when using Explicit Euler scheme.}) \\
 		\vspace{0.25cm}
 		\textcolor{blue}{\textbf{Solution:}}
 		{Using the Splitting scheme as the preferred integration scheme for all proceeding cases.}
 	\end{frame}
 	
 	\begin{frame}
-		\frametitle{Generalized Langevin Equation}
 		\subsection{Harmonic Potential Well}
-		\framesubtitle{Harmonic Potential Well}
+		\frametitle{Harmonic Potential Well}
 		\begin{block}{Harmonic Potential Well GLE}
 			\footnotesize
 			\begin{align}
@@ -436,17 +418,177 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 		\end{block}
 		\textcolor{blue}{\textbf{Question?}} \\ Approximation of the \texttt{memory kernel} in \Cref{eq:HarmonicGLE} using Prony series \\
 		\textcolor{blue}{\textbf{Answer:}} \\
-		\textit{log}-spaced values for $\tau_{k}$ from $\Delta t/10$ to $10N_{t}\Delta t$ and then linearly fitting $c_{k}$ i.e. $\min_{\BS{x}} \norm{\BS{A}\cdot \BS{x}-\BS{b}}^{2}, \quad \BS{x} = \left\{ c_{k} \right\} \quad \forall k=1, \cdots, N_{k}$
+		\textit{log}-spaced values for $\tau_{k}$ from $\Delta t/10$ to $10N_{t}\Delta t$ and then linearly fitting $c_{k}$ using \textit{least squares regression} i.e. $$\min_{\BS{x}} \norm{\BS{A}\cdot \BS{x}-\BS{b}}^{2}, \quad \BS{x} = \left\{ c_{k} \right\} \quad \forall
+		 k=1, \cdots, N_{k}$$
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Generalized Langevin Equation}
-		\framesubtitle{Harmonic Potential Well - Parameter Fitting}
+		\frametitle{Harmonic Potential Well - Parameter Fitting}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.725\linewidth]{./Plots/ParameterFittingExample/paramFit.eps}
+			\includegraphics[width=0.75\linewidth]{./Plots/ParameterFittingExample/paramFit.eps}
 			\caption{A Prony series fit of the \textit{power law} memory kernel in \cref{eq:HarmonicGLE} for
 				$\gamma_{\lambda} = 1$, $\lambda = 0.5$ for different $N_{k}$}
 		\end{figure}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{\large Harmonic Potential Well - Normalized \texttt{VAF} \& Pointwise Error}
+		\footnotesize
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[b]{0.48\linewidth}
+				\includegraphics[width=\linewidth]{./Plots/harmonicPotential/solnCompare.eps}
+				\caption{\footnotesize Normalized \texttt{VAF} at different times for different no. of modes used in Prony series approximation}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.48\linewidth}
+				\includegraphics[width=\linewidth]{./Plots/harmonicPotential/errorCompare.eps}
+				\caption{\footnotesize Pointwise error in \texttt{VAF} at different times for different no. of modes used in Prony series approximation}
+			\end{subfigure}
+			\caption{Approximation of the Harmonic Potential Well problem for $\gamma_{\lambda} = 1$, $\lambda = 0.5$ and $\omega_{0} = 1.4$ using Prony series approximation}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{\large Harmonic Potential Well - Normalized VAF \& Pointwise Error}
+		\begin{alertblock}{Normalized \texttt{VAF} - Exact Solution}
+			$$ \underbrace{C_{V}(t)}_{\text{Normalized VACF}} = \sum_{k=0}^{\infty} \frac{\rb{-1}^{k}}{k!} \rb{\omega_{0} t}^{2k} \mathscr{E}_{2-\lambda,1+\lambda k}^{(k)}\rb{-\gamma_{\lambda} t^{2-\lambda}}$$
+			where $\mathscr{E}_{\alpha,\beta}^{(k)}\rb{y}$ represents the $\text{k}^{\text{th}}$ derivative of the \textit{Generalized Mittag-Leffler} function given by:
+			$$ \mathscr{E}_{\alpha,\beta}^{(k)} \rb{y} = \sum_{j=0}^{\infty} \frac{\rb{j+k}! \; y^{j}}{j! \; \Gamma_{0}\rb{\alpha(j+k)+\beta}}$$
+		\end{alertblock}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Harmonic Potential Well - Normalized MSD}
+		\begin{figure}[H]
+			\includegraphics[width=0.725\linewidth]{./Plots/MSD/MSDCompare.eps}
+			\caption{Normalized MSD at different times for different no. of modes used in Prony series approximation. ($\gamma_{\lambda} = 1$, $\lambda = 0.5$ and $\omega_{0} = 1.4$)}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Harmonic Potential Well - Normalized MSD}
+		\begin{alertblock}{Normalized \texttt{MSD} - Exact Solution}
+			\footnotesize
+			\begin{align}
+				\notag
+				\underbrace{\angbrac{\sqb{\BS{X}(t+\tau)-\BS{X}(t)}^{2}}}_{\text{Normalized MSD}} &= \frac{2\text{k}_{\text{B}}T}{m} I(\tau) - 2 x_{0} v_{0} \omega_{0}^{2} \sqb{G(t+\tau) - G(t)}\sqb{I(t+\tau) - I(t)} \\
+				\notag 
+				&+ \rb{v_{0}^{2} - \frac{\text{k}_{\text{B}}T}{m}} \sqb{G(t+\tau)-G(t)}^{2} \\
+				\notag
+				&+ \omega_{0}^{2} \rb{x_{0}^{2} \omega_{0}^{2} - \frac{\text{k}_\text{B} T}{m}} \sqb{I(t+\tau)-I(t)}^{2}
+			\end{align}
+			\begin{align}
+				\notag
+				I(t) &= \sum_{k=0}^{\infty} \frac{\rb{-1}^{k}}{k!} \omega_{0}^{2k} t^{2(k+1)} \mathscr{E}^{(k)}_{2-\lambda,3+\lambda k} \rb{- \gamma_{\lambda} t^{2-\lambda}} && \text{(Kernel integral)}\\
+				\notag
+				G(t) &= \sum_{k=0}^{\infty} \frac{\rb{-1}^{k}}{k!} \omega_{0}^{2k} t^{2k+1} \mathscr{E}^{k}_{2-\lambda,2+\lambda k} \rb{- \gamma_{\lambda} t^{2-\lambda}} && \text{(Relaxation function)}
+			\end{align}
+		\end{alertblock}
+		where $v_{0}$,$x_{0}$ represent the velocity and position of the particles at time $t=0$.
+	\end{frame}
+
+	\begin{frame}
+		\section{Sensitivity Analysis}
+		\subsection{Need for Sensitivity Analysis}
+		\frametitle{Sensitivity Analysis}
+		\textcolor{blue}{\textbf{Inference:}}
+		\begin{itemize}
+			\item {Devised an integration scheme that is able to conserve first and second moments of $\BS{V}(t)$ and $\BS{X}(t)$ (Observables for understanding the behavior of physical systems.)}
+			\item {Adequately able to approximate exact memory kernel using finite no. of modes of Prony series.}
+		\end{itemize}
+		\textcolor{blue}{\textbf{Question?}} \\ Need for performing sensitivity analysis \vspace{0.2cm} \\
+		\textcolor{blue}{\textbf{Answer:}} \\
+		\begin{itemize}
+			\item {Extended variable GLE fitted by matching \texttt{MSD} or \texttt{VAF} obtained from experimental data $\Rightarrow$ Prony series parameters $c_{k},\tau_{k},N_{k}$ sensitive to experimental data i.e. to errors in measurement or lack of data.}
+			\item {\textit{Ergodicity breaking:} Time averaged statistics such as \texttt{MSD} do not converge to ensemble averages.}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Sensitivity Analysis}
+		\subsection{Introduction}
+		\begin{block}{Sensitivity Analysis}
+			Let $\mathcal{S}\rb{t,\theta;f}$ denote the sensitivity of the stochastic process $\BS{X}_{t}\rb{\theta}$ where $\theta$ is a parameter that affects the stochastic process and $f$ is the given observable. We are interested in calculating:
+			$$ \mathcal{S}\rb{t,\theta;f} = \frac{\partial \E{f\rb{\BS{X}_{t}\rb{\theta}}}}{\partial \theta}$$
+		\end{block}
+		\textcolor{blue}{\textbf{Methods of Calculation:}}
+		\begin{itemize}
+			\item {\textit{{Finite Difference Stencils:}} Approximating derivative by a finite difference stencil and obtain the required moments by Monte Carlo.}
+			\item {\textit{{Likelihood Ratio:}} Expressing sensitivity as an expectation of $f$ under a change of measure.}
+			\item {\textit{{Malliavin Calculus:}} Extension of calculus of variations to stochastic processes.}
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\subsection{Methods for calculating sensitivity}
+		\frametitle{Methods for calculating sensitivity}
+			\boxed{\texttt{Finite Difference Stencil}}
+			$$ \mathcal{S}_{\varepsilon}\rb{t,\theta;f} = \frac{\E{f\rb{\BS{X}_{t}\rb{\theta + \varepsilon}}} - \E{f\rb{\BS{X}_{t}\rb{\theta}}}}{\varepsilon} $$
+			\boxed{\texttt{Likelihood Estimator}}
+			\begin{align*}
+				\mathcal{S}_{LR}\rb{t,\theta;f} = \frac{\E{f\rb{\BS{X}_{t}\rb{\theta}}}}{\partial \theta} &= \int f\rb{x_{t}} \sqb{\partial_{\theta} \log g\rb{\theta,x_{t}}} g\rb{\theta,x_{t}} dx_{t} \\
+				\, &= \E{f\rb{\BS{X}_{t}\rb{\theta}} \partial_{\theta} \log g \rb{\theta,\BS{X}_{t}}}
+			\end{align*}
+			\vspace{0.2cm}
+			where $g$ represents the change in measure by a p.d.f.
+			\boxed{\texttt{Malliavin Calculus}}
+			\begin{align*}
+				\mathcal{S}_{M}\rb{t,\theta;f} = \E{f\rb{\BS{X}_{T}}h\rb{\cb{\BS{X}_{s}}_{0 \leq s \leq T}}}
+			\end{align*}
+			where $h\rb{.}$ represents the Malliavin weights.
+	\end{frame}
+
+	\begin{frame}
+		\subsection{Efficient Finite Difference Estimators}
+		\frametitle{\large Sensitivity Estimators using Finite Difference Stencils}
+		\footnotesize
+		\textcolor{blue}{\textbf{Objective:}} To calculate the sensitivity of the stochastic process efficiently using finite difference stencils $\Rightarrow$ right sampling strategy to reduce variance.\\
+		\vspace{0.15cm}
+		\textcolor{blue}{\textbf{Methodology:}}
+		Let $\hat{\phi}\rb{\theta}$ represent the expected value of the observable $f\rb{\BS{X}_{t}\rb{\theta}}$. Then we can write,
+		\footnotesize
+		\begin{align*}
+			\hat{\phi}\rb{\theta} = M^{-1} \sum_{i=1}^{M} f\rb{X_{i,t}\rb{\theta}} \Rightarrow \mathcal{S}_{\varepsilon} \rb{t,\theta;\hat{\phi}} \approx \Delta_{c} \rb{M,\varepsilon} = \frac{\hat{\phi}\rb{\theta + \varepsilon}-\hat{\phi}\rb{\theta-\varepsilon}}{2\varepsilon} \\
+		\end{align*}
+		%\normalsize
+		where each random variable is sampled independently of each other.
+		\footnotesize
+		\begin{align*}
+			\Rightarrow \text{Var}\sqb{\Delta_{c}} &= \varepsilon^{-2} \text{Var} \sqb{\hat{\phi} \rb{\theta + \varepsilon} - \hat{\phi} \rb{\theta - \varepsilon}} \\ &= \varepsilon^{-2} M^{-1} \text{Var} \sqb{\underbrace{f\rb{\BS{X}_{t}\rb{\theta + \varepsilon}}}_{R_{1}} - \underbrace{f\rb{\BS{X}_{t}\rb{\theta - \varepsilon}}}_{R_{2}}}
+		\end{align*}
+		%\normalsize
+		where the variance can be rewritten as
+		\footnotesize
+		$$ \text{Var}\sqb{\Delta_{c}} = \varepsilon^{-2} M^{-1} \rb{\text{Var}\sqb{R_{1}} + \text{Var}\sqb{R_{2}} - 2 \text{Cov} \sqb{R_{1},R_{2}}} $$ 
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{\large Sensitivity Estimators using Finite Difference Stencils}
+		\textit{Statistical Error} is given by $\epsilon_{M} = \frac{C_{\alpha} \sigma}{\sqrt{M}}$ where $\sigma = \sqrt{\text{Var}\sqb{\Delta_{c}}}$ and $C_{\alpha}$ is a constant based on the confidence level of the solution \\
+		\vspace{0.15cm}
+		\textcolor{blue}{\textbf{Coupled vs. Decoupled Noise:}}
+		\begin{itemize}
+			\item {If $R_{1}$ and $R_{2}$ are not correlated, then $\text{Var}\sqb{\Delta_{c}} = \mathcal{O}\rb{\varepsilon^{-2} M^{-1}}$}
+			\item {If $R_{1}$ and $R_{2}$ are positively correlated, then $\text{Var}\sqb{\Delta_{c}} = \mathcal{O}\rb{M^{-1}}$}
+		\end{itemize}
+		\textcolor{blue}{\textbf{Observation:}} \\
+		Let $\varepsilon = 0.1$. In order to reduce the error by a factor of $10$.
+		\begin{itemize}
+			\item {\textit{Coupled Noise:} $M = 10^{4}$ samples}
+			\item {\textit{Decoupled Noise:} $M = 10^{2}$ samples}
+		\end{itemize}
+		Hence the statistical error becomes independent of the perturbation parameter on using a common random path coupling i.e. $R_{1}$ and $R_{2}$ use the same Wiener process $dW$.
+	\end{frame}
+
+	\begin{frame}
+		\subsection{Senitivity Analysis - Results}
+		\frametitle{Sensitivity Analysis - Results}
+		
+	\end{frame}
+
+	\begin{frame}
+		\section{Conclusion}
+		\frametitle{Conclusion}
 	\end{frame}
 \end{document}
