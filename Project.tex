@@ -22,6 +22,8 @@
 
 \beamertemplatenavigationsymbolsempty
 
+\bibliographystyle{unsrt}
+
 \usefonttheme{professionalfonts}
 
 \usefonttheme[]{structurebold}
@@ -523,6 +525,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\begin{frame}
 		\subsection{Methods for calculating sensitivity}
 		\frametitle{Methods for calculating sensitivity}
+			\footnotesize
 			\boxed{\texttt{Finite Difference Stencil}}
 			$$ \mathcal{S}_{\varepsilon}\rb{t,\theta;f} = \frac{\E{f\rb{\BS{X}_{t}\rb{\theta + \varepsilon}}} - \E{f\rb{\BS{X}_{t}\rb{\theta}}}}{\varepsilon} $$
 			\boxed{\texttt{Likelihood Estimator}}
@@ -530,13 +533,13 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 				\mathcal{S}_{LR}\rb{t,\theta;f} = \frac{\E{f\rb{\BS{X}_{t}\rb{\theta}}}}{\partial \theta} &= \int f\rb{x_{t}} \sqb{\partial_{\theta} \log g\rb{\theta,x_{t}}} g\rb{\theta,x_{t}} dx_{t} \\
 				\, &= \E{f\rb{\BS{X}_{t}\rb{\theta}} \partial_{\theta} \log g \rb{\theta,\BS{X}_{t}}}
 			\end{align*}
+			where $g$ represents the change in measure by a p.d.f. \textcolor{red}{$g$ is unknown $\Rightarrow$ difficulty in calculating sensitivity using likelihood estimator} \\
 			\vspace{0.2cm}
-			where $g$ represents the change in measure by a p.d.f.
 			\boxed{\texttt{Malliavin Calculus}}
 			\begin{align*}
 				\mathcal{S}_{M}\rb{t,\theta;f} = \E{f\rb{\BS{X}_{T}}h\rb{\cb{\BS{X}_{s}}_{0 \leq s \leq T}}}
 			\end{align*}
-			where $h\rb{.}$ represents the Malliavin weights.
+			where $h\rb{.}$ represents the Malliavin weights. \textcolor{red}{$h(.)$ is computationally expensive to calculate.} 
 	\end{frame}
 
 	\begin{frame}
@@ -584,11 +587,91 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\begin{frame}
 		\subsection{Senitivity Analysis - Results}
 		\frametitle{Sensitivity Analysis - Results}
-		
+		\begin{figure}[H]
+			\begin{subfigure}[b]{0.48\linewidth}
+				\includegraphics[width=\linewidth]{./Plots/sensitivityAnalysis/VarianceC1.eps}
+				\caption{\scriptsize $\text{Var}\sqb{D\rb{Z_{t}}}$ for Normalized VAF where $D\rb{Z_{t}} = \rb{\hat{f}\rb{\theta + \varepsilon} - \hat{f}\rb{\theta - \varepsilon}}$}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.48\linewidth}
+				\includegraphics[width=\linewidth]{./Plots/sensitivityAnalysis/VarianceC1_CD.eps}
+				\caption{\scriptsize $\text{Var}\sqb{\Delta_{c}}$ for Normalized VAF where $\Delta_{c} = \rb{\hat{\phi}\rb{\theta+\varepsilon} - \hat{\phi}\rb{\theta-\varepsilon}}/2\varepsilon$}
+			\end{subfigure}
+		\caption{Order of variance reduction when using \textit{Coupled} vs. \textit{Decoupled} noise term on perturbing $c_{1}$. ($M=200,\delta t = 0.1,N_{p} = 1000$) }
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Sensitivity Analysis - Results}
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{0.32\linewidth}
+				\includegraphics[width=\linewidth]{./Plots/sensitivityAnalysis/c1M100.eps}
+				\caption{\tiny $\mathcal{S}_{\varepsilon} \rb{t,c_{1};\text{VAF}}, M = 10^{2}$}
+			\end{subfigure}
+			\begin{subfigure}{0.32\linewidth}
+				\includegraphics[width=\linewidth]{./Plots/sensitivityAnalysis/c3M100.eps}
+				\caption{\tiny $\mathcal{S}_{\varepsilon} \rb{t,c_{3};\text{VAF}}, M = 10^{2}$}
+			\end{subfigure}
+			\begin{subfigure}{0.32\linewidth}
+				\includegraphics[width=\linewidth]{./Plots/sensitivityAnalysis/c6M100.eps}
+				\caption{\tiny $\mathcal{S}_{\varepsilon} \rb{t,c_{6};\text{VAF}}, M = 10^{2}$}
+			\end{subfigure}
+			\begin{subfigure}{0.32\linewidth}
+				\includegraphics[width=\linewidth]{./Plots/sensitivityAnalysis/c1M10000.eps}
+				\caption{\tiny $\mathcal{S}_{\varepsilon} \rb{t,c_{1};\text{VAF}}, M = 10^{4}$}
+			\end{subfigure}
+			\begin{subfigure}{0.32\linewidth}
+				\includegraphics[width=\linewidth]{./Plots/sensitivityAnalysis/c3M10000.eps}
+				\caption{\tiny $\mathcal{S}_{\varepsilon} \rb{t,c_{3};\text{VAF}}, M = 10^{4}$}
+			\end{subfigure}
+			\begin{subfigure}{0.32\linewidth}
+				\includegraphics[width=\linewidth]{./Plots/sensitivityAnalysis/c6M10000.eps}
+				\caption{\tiny $\mathcal{S}_{\varepsilon} \rb{t,c_{6};\text{VAF}}, M = 10^{4}$}
+			\end{subfigure}
+			\caption{\scriptsize Sensitivity of solution due to perturbation of $c$ $\rb{\varepsilon = 0.01, \omega_{0} = \frac{8}{9}, \text{k}_{\text{B}} T = 10^{-5}}$}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Sensitivity Analysis - Results}
+		\begin{figure}[H]
+			\includegraphics[width=0.75\linewidth]{./Plots/sensitivityAnalysis/NkSensitivity.eps}
+			\caption{Var$\sqb{D\rb{Z_{t}}}$ where the difference in solution, $D\rb{Z_{t}}$, is between the nominal model with $N_{k} = n$ and the perturbed model with $N_{k} = n+1$ where $n = 1, \cdots, 8$ ($\omega_{0} = 8/9,\text{k}_{\text{B}}T = 10^{-5},t=100$)}
+		\end{figure}
 	\end{frame}
 
 	\begin{frame}
 		\section{Conclusion}
 		\frametitle{Conclusion}
+		%\footnotesize
+		\textcolor{blue}{\textbf{Extended Variable GLE:}}
+		\begin{itemize}
+			\item {\textit{Non-Markovian} GLE problem converted to \textit{Markovian} extended variable GLE problem using Prony series approximation.}
+			\item {Explicit Euler scheme does not conserve $1^{\text{st}}$ and $2^{\text{nd}}$ moments of $\BS{X}(t)$ and $\BS{V}(t)$ unlike Splitting scheme.}
+			\item {Number of modes used in Prony series approximation affects the \texttt{memory kernel} fit.}
+		\end{itemize}
+		\textcolor{blue}{\textbf{Sensitivity Analysis:}}
+		\begin{itemize}
+			%\item {Sensitivity analysis was performed using \texttt{Central Difference} finite difference stencil}
+			\item {Significant reduction in variance of the calculated sensitivity on using a common coupled random path for the diffusion term of GLE.}
+			\item {Order of variance reduction for $D\rb{Z_{t}}$ was observed to be $\mathcal{O}\rb{\varepsilon^{2}}$ for coupled noise and $\mathcal{O}\rb{1}$ for decoupled noise.}
+			\item {Order of variance reduction for $\Delta_{c}$ was observed to be $\mathcal{O}\rb{M^{-1}}$ for coupled noise and $\mathcal{O}\rb{\varepsilon^{-2}M^{-2}}$ for decoupled noise.}
+		\end{itemize}
+	\end{frame}
+		
+	\begin{frame}[allowframebreaks]
+		\section{References}
+		\frametitle{References}
+		\footnotesize
+		\nocite{Baczewski2013}
+		\nocite{Berne1966}
+		\nocite{Desposito2009}
+		\nocite{Hall2016}
+		\nocite{Higham2001}
+		\nocite{Kawasaki1973}
+		\nocite{Leimkuhler2015}
+		\nocite{Lysy2016}
+		\nocite{Vinales2006}
+		\bibliography{./citations.bib}
 	\end{frame}
 \end{document}

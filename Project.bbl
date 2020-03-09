@@ -1,0 +1,59 @@
+\begin{thebibliography}{1}
+
+\bibitem{Baczewski2013}
+Andrew~D. Baczewski and Stephen~D. Bond.
+\newblock {Numerical integration of the extended variable generalized Langevin
+  equation with a positive Prony representable memory kernel}.
+\newblock {\em Journal of Chemical Physics}, 139(4), 2013.
+
+\bibitem{Berne1966}
+Bruce~J. Berne, Jean~Pierre Boon, and Stuart~A. Rice.
+\newblock {On the calculation of autocorrelation functions of dynamical
+  variables}.
+\newblock {\em The Journal of Chemical Physics}, 45(4):1086--1096, 1966.
+
+\bibitem{Desposito2009}
+M.~A. Desp{\'{o}}sito and A.~D. Vi{\~{n}}ales.
+\newblock {Subdiffusive behavior in a trapping potential: Mean square
+  displacement and velocity autocorrelation function}.
+\newblock {\em Physical Review E - Statistical, Nonlinear, and Soft Matter
+  Physics}, 80(2):1--7, 2009.
+
+\bibitem{Hall2016}
+Eric~J. Hall, Markos~A. Katsoulakis, and Luc Rey-Bellet.
+\newblock {Uncertainty quantification for generalized Langevin dynamics}.
+\newblock {\em Journal of Chemical Physics}, 145(22), 2016.
+
+\bibitem{Higham2001}
+D.~J. Higham.
+\newblock {An algorithmic introduction to numerical simulation of stochastic
+  differential equations}.
+\newblock {\em SIAM Review}, 43(3):525--546, 2001.
+
+\bibitem{Kawasaki1973}
+K.~Kawasaki.
+\newblock {Simple derivations of generalized linear and nonlinear Langevin
+  equations}.
+\newblock {\em Journal of Physics A: General Physics}, 6(9):1289--1295, 1973.
+
+\bibitem{Leimkuhler2015}
+Ben Leimkuhler and Charles Matthews.
+\newblock {\em Molecular Dynamics}.
+\newblock Springer International Publishing, 2015.
+
+\bibitem{Lysy2016}
+Martin Lysy, Natesh~S. Pillai, David~B. Hill, M.~Gregory Forest, John~W.R.
+  Mellnik, Paula~A. Vasquez, and Scott~A. McKinley.
+\newblock {Model Comparison and Assessment for Single Particle Tracking in
+  Biological Fluids}.
+\newblock {\em Journal of the American Statistical Association},
+  111(516):1413--1426, 2016.
+
+\bibitem{Vinales2006}
+A.~D. Vi{\~{n}}ales and M.~A. Desp{\'{o}}sito.
+\newblock {Anomalous diffusion: Exact solution of the generalized Langevin
+  equation for harmonically bounded particle}.
+\newblock {\em Physical Review E - Statistical, Nonlinear, and Soft Matter
+  Physics}, 73(1):5--8, 2006.
+
+\end{thebibliography}
