@@ -1,18 +1,19 @@
 \beamer@sectionintoc {1}{Scope of the Project}{3}{0}{1}
 \beamer@sectionintoc {2}{Introduction to Generalized Langevin Equation}{4}{0}{2}
-\beamer@subsectionintoc {2}{1}{Introduction}{4}{0}{2}
-\beamer@subsectionintoc {2}{2}{Mathematical Model}{5}{0}{2}
-\beamer@subsectionintoc {2}{3}{Model Complications and Solutions}{7}{0}{2}
-\beamer@subsectionintoc {2}{4}{Extended Variable GLE}{9}{0}{2}
-\beamer@sectionintoc {3}{Numerical Schemes for Solving GLE}{10}{0}{3}
-\beamer@subsectionintoc {3}{1}{Numerical Schemes}{10}{0}{3}
-\beamer@subsectionintoc {3}{2}{Comparison of Numerical Schemes}{12}{0}{3}
-\beamer@subsectionintoc {3}{3}{Harmonic Potential Well}{15}{0}{3}
-\beamer@sectionintoc {4}{Sensitivity Analysis}{21}{0}{4}
+\beamer@subsectionintoc {2}{1}{Langevin dynamics as a computational tool}{4}{0}{2}
+\beamer@subsectionintoc {2}{2}{Stochastic systems with memory capture for anomalous diffusion}{5}{0}{2}
+\beamer@subsectionintoc {2}{3}{Complications due to memory effects}{7}{0}{2}
+\beamer@subsectionintoc {2}{4}{Extended Variable GLE formulation}{9}{0}{2}
+\beamer@sectionintoc {3}{Numerical Schemes}{10}{0}{3}
+\beamer@subsectionintoc {3}{1}{Explicit Euler vs. Splitting Schemes}{10}{0}{3}
+\beamer@subsectionintoc {3}{2}{First and Second moment conserving Splitting schemes}{13}{0}{3}
+\beamer@subsectionintoc {3}{3}{Numerical experiments - Splitting scheme applied to Harmonic Potential Well}{15}{0}{3}
+\beamer@sectionintoc {4}{Global and Local Sensitivity Analysis}{21}{0}{4}
 \beamer@subsectionintoc {4}{1}{Need for Sensitivity Analysis}{21}{0}{4}
-\beamer@subsectionintoc {4}{2}{Introduction}{22}{0}{4}
-\beamer@subsectionintoc {4}{3}{Methods for calculating sensitivity}{23}{0}{4}
-\beamer@subsectionintoc {4}{4}{Efficient Finite Difference Estimators}{24}{0}{4}
-\beamer@subsectionintoc {4}{5}{Senitivity Analysis - Results}{26}{0}{4}
-\beamer@sectionintoc {5}{Conclusion}{29}{0}{5}
-\beamer@sectionintoc {6}{References}{30}{0}{6}
+\beamer@subsectionintoc {4}{2}{Local Sensitivity Analysis}{22}{0}{4}
+\beamer@subsectionintoc {4}{3}{Tools available for performing local sensitivity analysis}{23}{0}{4}
+\beamer@subsectionintoc {4}{4}{Efficient Local Sensitivity Analysis using FD stencils and Coupled Random Path}{24}{0}{4}
+\beamer@subsectionintoc {4}{5}{Results for Global and Local Sensitivity Analysis}{26}{0}{4}
+\beamer@sectionintoc {5}{Conclusion}{30}{0}{5}
+\beamer@sectionintoc {6}{Outlook}{31}{0}{6}
+\beamer@sectionintoc {7}{References}{32}{0}{7}

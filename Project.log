@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.10.2)  9 MAR 2020 00:39
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.10.2)  10 MAR 2020 14:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1477,12 +1477,11 @@ File: RWTH_Aachen_University_Logo.eps Graphic file (type eps)
 
 ] (./Project.toc) [2
 
-]
-LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <9> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 109.
- [3
+] [3
 
 ]
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <9> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 143.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <8> not available
 (Font)              Font shape `TU/lmss/m/sl' tried instead on input line 143.
 LaTeX Font Info:    Try loading font information for U+msa on input line 143.
@@ -1730,185 +1729,185 @@ File: ./Plots/CaseStudy/Criticallydamped.eps Graphic file (type eps)
 File: ./Plots/CaseStudy/Overdamped.eps Graphic file (type eps)
 <./Plots/CaseStudy/Overdamped.eps>
 LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <8> not available
-(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 396.
+(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 394.
 
  [13
 
 ]
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <12> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 405.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 403.
 LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <12> not available
-(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 405.
+(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 403.
 
  [14
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 []\TU/lmss/m/n/8 Conservative
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 \TU/lmss/m/n/8 Force aris-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 \TU/lmss/m/n/8 ing from
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 \TU/lmss/m/n/8 Harmonic
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 []\TU/lmss/m/n/8 Conservative
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 \TU/lmss/m/n/8 Force aris-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 \TU/lmss/m/n/8 ing from
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 \TU/lmss/m/n/8 Harmonic
  []
 
 
-Underfull \hbox (badness 1616) in paragraph at lines 425--425
+Underfull \hbox (badness 1616) in paragraph at lines 423--423
 \TU/lmss/m/n/6 arising from Har-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 []\TU/lmss/m/n/5 Conservative Force
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 []\TU/lmss/m/sl/8 Power Law
  []
 
 
-Underfull \hbox (badness 2970) in paragraph at lines 425--425
+Underfull \hbox (badness 2970) in paragraph at lines 423--423
 \TU/lmtt/m/n/8 kernel \TU/lmss/m/n/8 func-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 []\TU/lmss/m/sl/8 Power Law
  []
 
 
-Underfull \hbox (badness 2970) in paragraph at lines 425--425
+Underfull \hbox (badness 2970) in paragraph at lines 423--423
 \TU/lmtt/m/n/8 kernel \TU/lmss/m/n/8 func-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 \TU/lmtt/m/n/6 memory kernel
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 []\TU/lmss/m/sl/5 Power Law \TU/lmss/m/n/5 decay
  []
 
 
-Underfull \hbox (badness 4595) in paragraph at lines 425--425
+Underfull \hbox (badness 4595) in paragraph at lines 423--423
 \TU/lmtt/m/n/5 memory kernel \TU/lmss/m/n/5 func-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 []\TU/lmss/m/n/8 Conservative
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 \TU/lmss/m/n/8 Force aris-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 \TU/lmss/m/n/8 ing from
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 \TU/lmss/m/n/8 Harmonic
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 []\TU/lmss/m/n/8 Conservative
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 \TU/lmss/m/n/8 Force aris-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 \TU/lmss/m/n/8 ing from
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 \TU/lmss/m/n/8 Harmonic
  []
 
 
-Underfull \hbox (badness 1616) in paragraph at lines 425--425
+Underfull \hbox (badness 1616) in paragraph at lines 423--423
 \TU/lmss/m/n/6 arising from Har-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 []\TU/lmss/m/n/5 Conservative Force
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 []\TU/lmss/m/sl/8 Power Law
  []
 
 
-Underfull \hbox (badness 2970) in paragraph at lines 425--425
+Underfull \hbox (badness 2970) in paragraph at lines 423--423
 \TU/lmtt/m/n/8 kernel \TU/lmss/m/n/8 func-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 []\TU/lmss/m/sl/8 Power Law
  []
 
 
-Underfull \hbox (badness 2970) in paragraph at lines 425--425
+Underfull \hbox (badness 2970) in paragraph at lines 423--423
 \TU/lmtt/m/n/8 kernel \TU/lmss/m/n/8 func-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 \TU/lmtt/m/n/6 memory kernel
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--423
 []\TU/lmss/m/sl/5 Power Law \TU/lmss/m/n/5 decay
  []
 
 
-Underfull \hbox (badness 4595) in paragraph at lines 425--425
+Underfull \hbox (badness 4595) in paragraph at lines 423--423
 \TU/lmtt/m/n/5 memory kernel \TU/lmss/m/n/5 func-
  []
 
@@ -1925,12 +1924,12 @@ File: ./Plots/harmonicPotential/solnCompare.eps Graphic file (type eps)
 File: ./Plots/harmonicPotential/errorCompare.eps Graphic file (type eps)
 <./Plots/harmonicPotential/errorCompare.eps>
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 452.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 450.
  [17
 
 ]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 461.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 459.
  [18
 
 ]
@@ -1975,13 +1974,20 @@ File: ./Plots/sensitivityAnalysis/c6M10000.eps Graphic file (type eps)
 ]
 File: ./Plots/sensitivityAnalysis/NkSensitivity.eps Graphic file (type eps)
 <./Plots/sensitivityAnalysis/NkSensitivity.eps>
+ [28
 
-Overfull \vbox (0.55507pt too high) detected at line 641
+]
+File: ./Plots/sensitivityAnalysis/SStarCoupled.eps Graphic file (type eps)
+<./Plots/sensitivityAnalysis/SStarCoupled.eps>
+
+Overfull \vbox (11.99956pt too high) detected at line 644
  []
 
-[28
+[29
 
-] [29
+] [30
+
+] [31
 
 ] (./Project.bbl
 File: beamericonarticle.pdf Graphic file (type pdf)
@@ -2004,12 +2010,12 @@ File: beamericonarticle.pdf Graphic file (type pdf)
 <use beamericonarticle.pdf>
 File: beamericonarticle.pdf Graphic file (type pdf)
 <use beamericonarticle.pdf>
-) [30
+) [32
 
-] [31
+] [33
 
 
-] [32
+] [34
 
 
 ]
@@ -2022,19 +2028,19 @@ File: beamericonarticle.pdf Graphic file (type pdf)
 \tf@snm=\write11
 \openout11 = `Project.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 677.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 677.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 691.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 691.
  (./Project.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 677.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 677.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 691.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 691.
  ) 
 Here is how much of TeX's memory you used:
- 36844 strings out of 493007
- 751155 string characters out of 6136719
- 826409 words of memory out of 5000000
- 40157 multiletter control sequences out of 15000+600000
+ 36854 strings out of 493007
+ 751335 string characters out of 6136719
+ 826411 words of memory out of 5000000
+ 40166 multiletter control sequences out of 15000+600000
  546530 words of font info for 134 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  56i,27n,75p,10410b,891s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Project.pdf (32 pages).
+Output written on Project.pdf (34 pages).

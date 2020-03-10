@@ -92,18 +92,18 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 
 	\begin{frame}
-		\small
+		\normalsize
 		\section{Scope of the Project}
 		\frametitle{Scope of the Project}
 		
 		\begin{itemize}
-			\item[What?]{Generalized Langevin Dynamics is a modeling technique that can be used to model anomalous diffusive phenomena observed in viscoelastic fluid flow and in biological systems.}
+			\item[What?]{Generalized Langevin Dynamics is a modeling technique that can be used to model anomalous diffusive phenomena observed in viscoelastic fluids.}
 			
-			\item[Why?]{Anomalous diffusion problems: Langevin model fails to capture sub-diffusive and super-diffusive behavior which the GLE succeeds in capturing. But GLE is \textit{Non-Markovian} i.e. \texttt{memory kernel} depends on the history of velocity. This issue is overcome by using Extended Variable GLE that considers a finite dimensional subspace for the \texttt{memory kernel}.}
+			\item[Why?]{GLE succeeds in capturing sub-diffusive and super-diffusive behavior. But GLE is \textit{Non-Markovian} i.e. \texttt{memory kernel} depends on the history of velocity. This issue is overcome by using Extended Variable GLE that considers a finite dimensional subspace for the \texttt{memory kernel}.}
+			
+			\item[How?]{Study Extended Variable GLE using Prony series approximation. Accuracy of Implicit/Explicit Euler and Splitting Numerical schemes are also tested to find out the "optimal scheme". Study local and global sensitivity of the observables to perturbations of the extended variable GLE.}
 			
 			\item[Where?]{Applications of GLE include but are not restricted to micro-rheology, biological systems, nuclear quantum effects and systems in which anomalous diffusion arise.}
-			
-			\item[How?]{Study Extended Variable GLE using Prony series approximation. Accuracy of Implicit/Explicit Euler and Splitting Numerical schemes are also tested to find out the optimal scheme. Study the sensitivity of the solution to the changes in the parameters of the extended variable GLE.}
 			
 		\end{itemize}
 	\end{frame}
@@ -111,8 +111,8 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\begin{frame}
 		\small
 		\section{Introduction to Generalized Langevin Equation}
-		\subsection{Introduction}
-		\frametitle{Introduction}
+		\subsection{Langevin dynamics as a computational tool}
+		\frametitle{Langevin dynamics as a computational tool}
 		\begin{itemize}
 			\item[What?] {\textbf{Langevin Dynamics:} Large particles in a bath of small particles, motion of large particles directly integrated while the dynamics of small particles are "averaged out".}
 			\item[Why?] {\textit{Molecular Dynamics} simulations involving all particles is computationally expensive. Langevin Equation model is computationally cheaper.}
@@ -144,8 +144,8 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	
 	\begin{frame}
 		\small
-		\subsection{Mathematical Model}
-		\frametitle{Mathematical Model}
+		\subsection{Stochastic systems with memory capture for anomalous diffusion}
+		\frametitle{Mathematical Model for Anomalous Diffusion}
 		
 		The velocity term of GLE is based on \textit{Ornstein-Uhlenbeck} process.
 	
@@ -170,7 +170,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 
 	\begin{frame}
 		\small
-		\frametitle{Mathematical Model}
+		\frametitle{Mathematical Model for Anomalous Diffusion}
 		\begin{theorem}
 			FDT (Fluctuation Dissipation Theorem) states that the equilibration to a temperature, $T$, requires that the two-time correlation of $\BS{F}^{r}(t)$ and $\BS{\Gamma}(t)$ be related as:
 			\begin{align}
@@ -189,8 +189,8 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 	
 	\begin{frame}
-		\subsection{Model Complications and Solutions}
-		\frametitle{Model Complications and Solutions}
+		\subsection{Complications due to memory effects}
+		\frametitle{Complications due to memory effects}
 		\vspace{-0.8cm}
 		\begin{minipage}[t]{0.44\textwidth}
 			\begin{alertblock}{\textbf{Complications}}
@@ -219,7 +219,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Model Complications and Solutions}
+		\frametitle{Complications due to memory effects}
 		\small
 		\textcolor{blue}{\textbf{Why use extended variable Prony Series?}}
 		
@@ -237,8 +237,8 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 
 	\begin{frame}
-		\subsection{Extended Variable GLE}
-		\frametitle{Extended Variable GLE}
+		\subsection{Extended Variable GLE formulation}
+		\frametitle{Extended Variable GLE formulation}
 		\vspace{-0.3cm}
  		%\textbf{Extended Variable GLE:}
 		\tiny
@@ -263,9 +263,9 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 	
 	\begin{frame}
-		\section{Numerical Schemes for Solving GLE}
-		\subsection{Numerical Schemes}
-		\frametitle{Numerical Schemes}
+		\section{Numerical Schemes}
+		\subsection{Explicit Euler vs. Splitting Schemes}
+		\frametitle{Explicit Euler vs. Splitting Schemes}
 		\footnotesize
 		\textcolor{blue}{\textbf{Numerical Schemes:}}
 		\begin{itemize}
@@ -273,9 +273,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 			\item {Splitting Scheme.}
 		\end{itemize}
 		\begin{alertblock}{Which numerical scheme to choose for solving the problem?}
-			{Scheme that is able to conserve the first and second moments of quantities of interest i.e. $\BS{V}(t)$ and $\BS{X}(t)$.} \\
-			\vspace{0.2cm}
-			\textbf{Reason: } General observables/physical quantities that are measured to understand the behavior of a system. For example, \textit{Mean Square Displacement}(\texttt{MSD}) in microrheology simulations.
+			General observables/physical quantities that are measured to understand the behavior of a system. E.g., \textit{Mean Square Displacement} (\texttt{MSD}) and \textit{Velocity Autocorrelation Function} \texttt{VAF} in microrheology $\Rightarrow$ Scheme that conserves the first and second moments of $\BS{V}(t)$ and $\BS{X}(t)$ are essential for validating the simulations.
 		\end{alertblock}
 		\textcolor{blue}{\textbf{Implementation Details:}}
 		\begin{itemize}
@@ -286,7 +284,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 	
 	\begin{frame}
-		\frametitle{Numerical Schemes}
+		\frametitle{Explicit Euler vs. Splitting Schemes}
 			\vspace{-0.3cm}
 			\begin{algorithm}[H]
 				\scriptsize
@@ -334,9 +332,8 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 
 	\begin{frame}
-		\subsection{Comparison of Numerical Schemes}
-		\frametitle{Comparison of Numerical Schemes}
-		\textcolor{blue}{\textbf{Case Study:}}
+		\frametitle{Explicit Euler vs. Splitting Schemes - Case Study}
+		\textcolor{blue}{\textbf{Assumptions:}}
 		\begin{itemize}
 			\item {One dimensional problem, $d = 1$}
 			\item {Single mode in the Prony series approximation, $N_{k} = 1$}
@@ -359,8 +356,9 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 
 	\begin{frame}
+		\subsection{First and Second moment conserving Splitting schemes}
 		\footnotesize
-		\frametitle{Comparison of Numerical Schemes - Results}
+		\frametitle{Explicit Euler vs. Splitting Schemes - Results}
 		\begin{figure}[H]
 			\centering
 			\begin{subfigure}[b]{0.326\linewidth}
@@ -375,7 +373,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 				\includegraphics[width=\linewidth]{./Plots/CaseStudy/Overdamped.eps}
 				\caption{Over-damped}
 			\end{subfigure}
-			\caption{Comparison of different numerical schemes w.r.t. Normalized VAF}
+			\caption{Normalized VAF vs. Time for Explicit Euler and Splitting schemes($\delta t = 0.01, N_{p} = 1000, N_{k} = 1$)}
 		\end{figure}
 		\vspace{-0.5cm}
 		\begin{alertblock}{Normalized VAF (\textit{Velocity Autocorrelation Function})}
@@ -391,22 +389,22 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 				\notag
 				\Omega = \sqrt{c/\tau - 1/4\tau^{2}}
 			\end{gather}
-			\textbf{Note:} VAF is for one mode Prony series approx. without any conservative force terms.
+			\textbf{Note:} One mode Prony series approx. without any conservative force terms.
 		\end{alertblock}
 	\end{frame}
 	\begin{frame}
-		\frametitle{Comparison of Numerical Schemes - Results}
+		\frametitle{\large First and Second moment conserving Splitting schemes}
 		\large
 		\textcolor{blue}{\textbf{Observation:}}
 		{Explicit Euler scheme produces wrong results for the \texttt{Normalized VAF} as when compared to the Splitting scheme} (\textit{\textbf{Reason:} Independent updates for $\BS{X}(t)$ and $\BS{V}(t)$ when using Explicit Euler scheme.}) \\
 		\vspace{0.25cm}
 		\textcolor{blue}{\textbf{Solution:}}
-		{Using the Splitting scheme as the preferred integration scheme for all proceeding cases.}
+		{Using the Splitting scheme as the preferred integration scheme for all proceeding numerical experiments and sensitivity analysis studies.}
 	\end{frame}
 	
 	\begin{frame}
-		\subsection{Harmonic Potential Well}
-		\frametitle{Harmonic Potential Well}
+		\subsection{Numerical experiments - Splitting scheme applied to Harmonic Potential Well}
+		\frametitle{Harmonic Potential Well - Problem}
 		\begin{block}{Harmonic Potential Well GLE}
 			\footnotesize
 			\begin{align}
@@ -491,25 +489,20 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 
 	\begin{frame}
-		\section{Sensitivity Analysis}
+		\section{Global and Local Sensitivity Analysis}
 		\subsection{Need for Sensitivity Analysis}
-		\frametitle{Sensitivity Analysis}
-		\textcolor{blue}{\textbf{Inference:}}
-		\begin{itemize}
-			\item {Devised an integration scheme that is able to conserve first and second moments of $\BS{V}(t)$ and $\BS{X}(t)$ (Observables for understanding the behavior of physical systems.)}
-			\item {Adequately able to approximate exact memory kernel using finite no. of modes of Prony series.}
-		\end{itemize}
-		\textcolor{blue}{\textbf{Question?}} \\ Need for performing sensitivity analysis \vspace{0.2cm} \\
+		\frametitle{Need for Sensitivity Analysis}
+		\textcolor{blue}{\textbf{Question?}} \\ \vspace{0.2cm} Why do we need to perform global and local sensitivity analysis? \vspace{0.2cm} \\
 		\textcolor{blue}{\textbf{Answer:}} \\
 		\begin{itemize}
-			\item {Extended variable GLE fitted by matching \texttt{MSD} or \texttt{VAF} obtained from experimental data $\Rightarrow$ Prony series parameters $c_{k},\tau_{k},N_{k}$ sensitive to experimental data i.e. to errors in measurement or lack of data.}
-			\item {\textit{Ergodicity breaking:} Time averaged statistics such as \texttt{MSD} do not converge to ensemble averages.}
+			\item {Extended variable GLE fitted by matching \texttt{MSD} or \texttt{VAF} obtained from experimental data. Prony series parameters $c_{k},\tau_{k},N_{k}$ sensitive to experimental data i.e. to errors in measurement or lack of data. Also determine $N_{k}$ such that the error in the fit is lower than certain tolerance.}
+			\item {\textit{Ergodicity breaking:} Time averaged statistics such as \texttt{MSD} do not converge to ensemble averages i.e. there is a large "spread" (variance) in the observables.}
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Sensitivity Analysis}
-		\subsection{Introduction}
+		\subsection{Local Sensitivity Analysis}
+		\frametitle{Mathematical Tools for Local Sensitivity Analysis}
 		\begin{block}{Sensitivity Analysis}
 			Let $\mathcal{S}\rb{t,\theta;f}$ denote the sensitivity of the stochastic process $\BS{X}_{t}\rb{\theta}$ where $\theta$ is a parameter that affects the stochastic process and $f$ is the given observable. We are interested in calculating:
 			$$ \mathcal{S}\rb{t,\theta;f} = \frac{\partial \E{f\rb{\BS{X}_{t}\rb{\theta}}}}{\partial \theta}$$
@@ -523,8 +516,8 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 	
 	\begin{frame}
-		\subsection{Methods for calculating sensitivity}
-		\frametitle{Methods for calculating sensitivity}
+		\subsection{Tools available for performing local sensitivity analysis}
+		\frametitle{Mathematical Tools for Local Sensitivity Analysis}
 			\footnotesize
 			\boxed{\texttt{Finite Difference Stencil}}
 			$$ \mathcal{S}_{\varepsilon}\rb{t,\theta;f} = \frac{\E{f\rb{\BS{X}_{t}\rb{\theta + \varepsilon}}} - \E{f\rb{\BS{X}_{t}\rb{\theta}}}}{\varepsilon} $$
@@ -533,20 +526,20 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 				\mathcal{S}_{LR}\rb{t,\theta;f} = \frac{\E{f\rb{\BS{X}_{t}\rb{\theta}}}}{\partial \theta} &= \int f\rb{x_{t}} \sqb{\partial_{\theta} \log g\rb{\theta,x_{t}}} g\rb{\theta,x_{t}} dx_{t} \\
 				\, &= \E{f\rb{\BS{X}_{t}\rb{\theta}} \partial_{\theta} \log g \rb{\theta,\BS{X}_{t}}}
 			\end{align*}
-			where $g$ represents the change in measure by a p.d.f. \textcolor{red}{$g$ is unknown $\Rightarrow$ difficulty in calculating sensitivity using likelihood estimator} \\
+			where $g$ represents the change in measure by a p.d.f. \textcolor{red}{$g$ is unknown which means that it is difficult to calculate local sensitivity using likelihood estimator. Also there is no appropriate change of measure on path space as the parameters $c_{k}$ and $\tau_{k}$ appear in both drift and diffusion terms.} \\
 			\vspace{0.2cm}
 			\boxed{\texttt{Malliavin Calculus}}
 			\begin{align*}
 				\mathcal{S}_{M}\rb{t,\theta;f} = \E{f\rb{\BS{X}_{T}}h\rb{\cb{\BS{X}_{s}}_{0 \leq s \leq T}}}
 			\end{align*}
-			where $h\rb{.}$ represents the Malliavin weights. \textcolor{red}{$h(.)$ is computationally expensive to calculate.} 
+			where $h\rb{.}$ represents the Malliavin weights that are non-unique. \textcolor{red}{$h(.)$ is difficult to calculate as it involves solving a system of auxiliary processes obtained using Malliavin Calculus.} 
 	\end{frame}
 
 	\begin{frame}
-		\subsection{Efficient Finite Difference Estimators}
-		\frametitle{\large Sensitivity Estimators using Finite Difference Stencils}
+		\subsection{Efficient Local Sensitivity Analysis using FD stencils and Coupled Random Path}
+		\frametitle{\large Efficient Local Sensitivity Analysis using FD Stencils for Coupled Random Path}
 		\footnotesize
-		\textcolor{blue}{\textbf{Objective:}} To calculate the sensitivity of the stochastic process efficiently using finite difference stencils $\Rightarrow$ right sampling strategy to reduce variance.\\
+		\textcolor{blue}{\textbf{Objective:}} To find a reduced variance sampling strategy for calculating the local sensitivity.\\
 		\vspace{0.15cm}
 		\textcolor{blue}{\textbf{Methodology:}}
 		Let $\hat{\phi}\rb{\theta}$ represent the expected value of the observable $f\rb{\BS{X}_{t}\rb{\theta}}$. Then we can write,
@@ -567,7 +560,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 	
 	\begin{frame}
-		\frametitle{\large Sensitivity Estimators using Finite Difference Stencils}
+		\frametitle{\large Efficient Local Sensitivity Analysis using FD Stencils for Coupled Random Path}
 		\textit{Statistical Error} is given by $\epsilon_{M} = \frac{C_{\alpha} \sigma}{\sqrt{M}}$ where $\sigma = \sqrt{\text{Var}\sqb{\Delta_{c}}}$ and $C_{\alpha}$ is a constant based on the confidence level of the solution \\
 		\vspace{0.15cm}
 		\textcolor{blue}{\textbf{Coupled vs. Decoupled Noise:}}
@@ -585,8 +578,8 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 
 	\begin{frame}
-		\subsection{Senitivity Analysis - Results}
-		\frametitle{Sensitivity Analysis - Results}
+		\subsection{Results for Global and Local Sensitivity Analysis}
+		\frametitle{Local Sensitivity Analysis - Coupled vs. Decoupled Random Path}
 		\begin{figure}[H]
 			\begin{subfigure}[b]{0.48\linewidth}
 				\includegraphics[width=\linewidth]{./Plots/sensitivityAnalysis/VarianceC1.eps}
@@ -601,7 +594,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Sensitivity Analysis - Results}
+		\frametitle{Local Sensitivity Analysis - Parameter Perturbation}
 		\begin{figure}[H]
 			\centering
 			\begin{subfigure}{0.32\linewidth}
@@ -628,15 +621,25 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 				\includegraphics[width=\linewidth]{./Plots/sensitivityAnalysis/c6M10000.eps}
 				\caption{\tiny $\mathcal{S}_{\varepsilon} \rb{t,c_{6};\text{VAF}}, M = 10^{4}$}
 			\end{subfigure}
-			\caption{\scriptsize Sensitivity of solution due to perturbation of $c$ $\rb{\varepsilon = 0.01, \omega_{0} = \frac{8}{9}, \text{k}_{\text{B}} T = 10^{-5}}$}
+			\caption{Local sensitivity of observable, VAF, due to perturbation of $c$ $\rb{\varepsilon = 0.01, \omega_{0} = \frac{8}{9}, \text{k}_{\text{B}} T = 10^{-5}}$}
 		\end{figure}
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Sensitivity Analysis - Results}
+		\frametitle{\large Global Sensitivity Analysis - No. of Modes Perturbation}
 		\begin{figure}[H]
-			\includegraphics[width=0.75\linewidth]{./Plots/sensitivityAnalysis/NkSensitivity.eps}
-			\caption{Var$\sqb{D\rb{Z_{t}}}$ where the difference in solution, $D\rb{Z_{t}}$, is between the nominal model with $N_{k} = n$ and the perturbed model with $N_{k} = n+1$ where $n = 1, \cdots, 8$ ($\omega_{0} = 8/9,\text{k}_{\text{B}}T = 10^{-5},t=100$)}
+			\includegraphics[width=0.5\linewidth]{./Plots/sensitivityAnalysis/NkSensitivity.eps}
+			\caption{\footnotesize Var$\sqb{D\rb{Z_{t}}}$ where the difference in solution, $D\rb{Z_{t}}$, is between the nominal model with $N_{k} = n$ and the perturbed model with $N_{k} = n+1$ where $n = 1, \cdots, 8$ ($\omega_{0} = 8/9,\text{k}_{\text{B}}T = 10^{-5},t=100$).}
+		\end{figure}
+		Though this does not provide a measure for local sensitivity, this provides us information for deciding when we have enough no. of modes in the Prony series approximation of Extended Variable GLE system i.e. the system is no longer sensitive to capture more memory.
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{\large Global Sensitivity Analysis - No. of Modes Perturbation}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.75\linewidth]{./Plots/sensitivityAnalysis/SStarCoupled.eps}
+			\caption{The global sensitivity index $\mathcal{S}^{*} = \sum_{t} \left| \E{D\rb{Z_{t}}} \right| ^{2} / \sigma_{Z_{t}}$ gives a quantitative characterization of the difference between the observed VAF on varying the no. of Prony series modes. ($\omega_{0} = 8/9,\text{k}_{\text{B}}T = 10^{-5},t=50,M=10^{2}$).}
 		\end{figure}
 	\end{frame}
 
@@ -646,8 +649,8 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 		%\footnotesize
 		\textcolor{blue}{\textbf{Extended Variable GLE:}}
 		\begin{itemize}
-			\item {\textit{Non-Markovian} GLE problem converted to \textit{Markovian} extended variable GLE problem using Prony series approximation.}
-			\item {Explicit Euler scheme does not conserve $1^{\text{st}}$ and $2^{\text{nd}}$ moments of $\BS{X}(t)$ and $\BS{V}(t)$ unlike Splitting scheme.}
+			\item {\textit{Non-Markovian} challenge overcome by converting to \textit{Markovian} extended variable GLE problem using Prony series approximation.}
+			\item {Explicit Euler scheme does not conserve $1^{\text{st}}$ and $2^{\text{nd}}$ moments unlike Splitting scheme.}
 			\item {Number of modes used in Prony series approximation affects the \texttt{memory kernel} fit.}
 		\end{itemize}
 		\textcolor{blue}{\textbf{Sensitivity Analysis:}}
@@ -656,6 +659,17 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 			\item {Significant reduction in variance of the calculated sensitivity on using a common coupled random path for the diffusion term of GLE.}
 			\item {Order of variance reduction for $D\rb{Z_{t}}$ was observed to be $\mathcal{O}\rb{\varepsilon^{2}}$ for coupled noise and $\mathcal{O}\rb{1}$ for decoupled noise.}
 			\item {Order of variance reduction for $\Delta_{c}$ was observed to be $\mathcal{O}\rb{M^{-1}}$ for coupled noise and $\mathcal{O}\rb{\varepsilon^{-2}M^{-2}}$ for decoupled noise.}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\section{Outlook}
+		\frametitle{Outlook}
+		\large
+		\begin{itemize}
+			\item {Parameter fitting over experimental data to see how the noise in the experimental data affects the model.}
+			\item {Compatibility study of Prony series approximations to other complex potentials.}
+			\item {Expressing memory kernel in a form such that the problem can be solved using Krylov subspace methods.}
 		\end{itemize}
 	\end{frame}
 		

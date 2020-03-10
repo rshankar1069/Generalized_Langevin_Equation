@@ -2,9 +2,9 @@
 function [params] = inputParameters(noModes,nominalOpt)
     params.kB = physconst("Boltzmann");                                     % Boltzmann constant
     params.Temp = 1e-6/params.kB;                                                      % Temperature (in Kelvin)
-    params.T = 100;                                                          % Total time for which the simulation is run
+    params.T = 50;                                                          % Total time for which the simulation is run
     params.Np = 100;                                                       % Number of particles considered for the simulation
-    params.Nt = 10000;                                                       % Number of time steps to consider
+    params.Nt = 1000;                                                       % Number of time steps to consider
     params.del_t = params.T/params.Nt;                                      % Time-step size used in the Euler scheme
     params.d = 1;                                                           % Number of spatial dimensions to consider for each particle
     if(nominalOpt == 1)
