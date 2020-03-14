@@ -4,8 +4,8 @@ clear all; clc; close all;
 kB = physconst("Boltzmann");                % Boltzmann constant
 Temp = 300;                                 % Temperature (in Kelvin)
 T = 10;                                     % Total time for which the simulation is run
-Np = 1000;                                  % Number of particles considered for the simulation
-Nt = 1000;                                  % Number of time steps to consider
+Np = 1;                                  % Number of particles considered for the simulation
+Nt = 100;                                  % Number of time steps to consider
 del_t = T/Nt;                               % Time-step size used in the Euler scheme
 d = 1;                                      % Number of spatial dimensions to consider for each particle
 Nk = 1;                                     % Number of modes to consider for the Prony Series
@@ -13,9 +13,10 @@ m = 1;                                      % Mass of one individual particle
 M = m*eye(d*Np,d*Np);                       % Mass matrix involving all the particles
 S = zeros(d*Np,Nk);                         % Initial value of the composite variable
 
+posmag = 0.01;
 velmag = 0.01;                              % Velocity Magnitude Scaling
 Vt = velmag*ones(d*Np,Nt+1);                % Velocity matrices for all time steps, particles and dimensions
-Xt = zeros(d*Np,Nt+1);                      % Position matrices for all time steps, particles and dimensions
+Xt = posmag*ones(d*Np,Nt+1);                % Position matrices for all time steps, particles and dimensions
 
 randn('seed',100);                          % Seeding the random number generator to generate the same set of numbers
 

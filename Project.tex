@@ -101,7 +101,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 			
 			\item[Why?]{GLE succeeds in capturing sub-diffusive and super-diffusive behavior. But GLE is \textit{Non-Markovian} i.e. \texttt{memory kernel} depends on the history of velocity. This issue is overcome by using Extended Variable GLE that considers a finite dimensional subspace for the \texttt{memory kernel}.}
 			
-			\item[How?]{Study Extended Variable GLE using Prony series approximation. Accuracy of Implicit/Explicit Euler and Splitting Numerical schemes are also tested to find out the "optimal scheme". Study local and global sensitivity of the observables to perturbations of the extended variable GLE.}
+			\item[How?]{Study Extended Variable GLE using Prony series approximation. Accuracy of Explicit Euler and Splitting Numerical schemes are also tested to find out the "optimal scheme". Study local and global sensitivity of the observables to perturbations of the extended variable GLE.}
 			
 			\item[Where?]{Applications of GLE include but are not restricted to micro-rheology, biological systems, nuclear quantum effects and systems in which anomalous diffusion arise.}
 			
@@ -177,7 +177,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 				\angbrac{\BS{F}^{r}_{i}(t+s),\BS{F}^{r}_{j}(t)} = \text{k}_{\text{B}} T \BS{\Gamma}(s) \delta_{ij}, \qquad s \geq 0
 			\end{align}
 		\end{theorem}
-		where $\text{k}_{\text{B}}$ is the Boltzmann's Constant and $\delta_{ij}$ is the Kronecker Delta.
+		where $\text{k}_{\text{B}}$ is the Boltzmann's Constant, $\delta_{ij}$ is the Kronecker Delta and $i$,$j$ represent distinguished non-interacting particles (in our case, the solute particles that we are modeling). Hence FDT correlates the random forces for a given solute particle at different times.
 		\linebreak
 		
 		
@@ -234,6 +234,8 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 			\item {Conservation of moments of variables of interest such as displacement and velocity (usual variables of interest for MD simulations)}
 			\item {Convergence of \textbf{GLE} to Langevin equation in the limit of small $\tau_{k}$ as observed in theory.}
 		\end{itemize}
+	
+		\textcolor{red}{\textbf{Note:}} In the numerical experiments carried out in this presentation, we consider sub-diffusive decaying behavior which behaves as $t^{-\alpha}$ where $\alpha < 1$ and hence we use a decaying Prony series to approximate the memory function.
 	\end{frame}
 
 	\begin{frame}
@@ -273,12 +275,12 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 			\item {Splitting Scheme.}
 		\end{itemize}
 		\begin{alertblock}{Which numerical scheme to choose for solving the problem?}
-			General observables/physical quantities that are measured to understand the behavior of a system. E.g., \textit{Mean Square Displacement} (\texttt{MSD}) and \textit{Velocity Autocorrelation Function} \texttt{VAF} in microrheology $\Rightarrow$ Scheme that conserves the first and second moments of $\BS{V}(t)$ and $\BS{X}(t)$ are essential for validating the simulations.
+			General observables/physical quantities that are measured to understand the behavior of a system. E.g., \textit{Mean Square Displacement} (\texttt{MSD}) and \textit{Velocity Autocorrelation Function} \texttt{VAF} in microrheology. Therefore essential to consider scheme that conserves the first and second moments of $\BS{V}(t)$ and $\BS{X}(t)$ for validating the simulations.
 		\end{alertblock}
 		\textcolor{blue}{\textbf{Implementation Details:}}
 		\begin{itemize}
 			\item {Uniform time-step size, $\Delta t$, where $N_{t} \Delta t = T_{\text{tot}}$ ($T_{\text{tot}}$ represents the total time of the simulation and $N_{t}$ represents the \# of time-steps.)}
-			\item {All $N_{p}$ particles are seeded with the same constant $\BS{X}(0)$ and $\BS{V}(0)$ (\textcolor{red}{\textbf{Note:}} We could also seed the initial conditions based on the p.d.f if known.)}
+			\item {All $N_{p}$ particles are seeded with the same constant $\BS{X}(0)$ and $\BS{V}(0)$ (\textcolor{red}{\textbf{Note:}} We could also seed the initial conditions based on \textit{Boltzmann} distribution.)}
 			\item {The composite variable $S_{i,k}(t)$ is assumed to be zero initially.}
 		\end{itemize}
 	\end{frame}
@@ -362,15 +364,15 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 		\begin{figure}[H]
 			\centering
 			\begin{subfigure}[b]{0.326\linewidth}
-				\includegraphics[width=\linewidth]{./Plots/CaseStudy/Underdamped.eps}
+				\includegraphics[width=\linewidth]{./Plots/CaseStudy/nonnorm_scale_under.eps}
 				\caption{Under-damped}
 			\end{subfigure}
 			\begin{subfigure}[b]{0.326\linewidth}
-				\includegraphics[width=\linewidth]{./Plots/CaseStudy/Criticallydamped.eps}
+				\includegraphics[width=\linewidth]{./Plots/CaseStudy/nonnorm_scale_critical.eps}
 				\caption{Critically-damped}
 			\end{subfigure}
 			\begin{subfigure}[b]{0.326\linewidth}
-				\includegraphics[width=\linewidth]{./Plots/CaseStudy/Overdamped.eps}
+				\includegraphics[width=\linewidth]{./Plots/CaseStudy/nonnorm_scale_over.eps}
 				\caption{Over-damped}
 			\end{subfigure}
 			\caption{Normalized VAF vs. Time for Explicit Euler and Splitting schemes($\delta t = 0.01, N_{p} = 1000, N_{k} = 1$)}
@@ -392,6 +394,15 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 			\textbf{Note:} One mode Prony series approx. without any conservative force terms.
 		\end{alertblock}
 	\end{frame}
+
+	\begin{frame}
+		\frametitle{Explicit Euler vs. Splitting Schemes - Results}
+		\begin{figure}[H]
+			\includegraphics[width=0.75\linewidth]{./Plots/timeStepVariation/timeVariation.eps}
+			\caption{\footnotesize Normalized VAF vs. Time for Explicit Euler scheme for different time step sizes. Here we have considered zero conservative force acting on the particles with one mode Prony series approximation. We can see that even on using very fine time-step size, the Explicit Euler scheme does not conserve moments.}
+		\end{figure}
+	\end{frame}
+	
 	\begin{frame}
 		\frametitle{\large First and Second moment conserving Splitting schemes}
 		\large
@@ -489,6 +500,14 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 	\end{frame}
 
 	\begin{frame}
+		\frametitle{Harmonic Potential Well - Normalized PAF}
+		\begin{figure}[H]
+			\includegraphics[width=0.75\linewidth]{./Plots/normalizedPAFPlots/normPAF.eps}
+			\caption{Normalized PAF, $ \frac{\angbrac{\BS{X}(t),\BS{X}(0)}}{\angbrac{\BS{X}(0),\BS{X}(0)}}$ vs. Time for Harmonic Potential Well problem when approximated with varying no. of terms in the Prony series approximation ($\gamma_{\lambda} = 1$, $\lambda = 0.5$ and $\omega_{0} = 1.4$)}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}
 		\section{Global and Local Sensitivity Analysis}
 		\subsection{Need for Sensitivity Analysis}
 		\frametitle{Need for Sensitivity Analysis}
@@ -523,7 +542,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 			$$ \mathcal{S}_{\varepsilon}\rb{t,\theta;f} = \frac{\E{f\rb{\BS{X}_{t}\rb{\theta + \varepsilon}}} - \E{f\rb{\BS{X}_{t}\rb{\theta}}}}{\varepsilon} $$
 			\boxed{\texttt{Likelihood Estimator}}
 			\begin{align*}
-				\mathcal{S}_{LR}\rb{t,\theta;f} = \frac{\E{f\rb{\BS{X}_{t}\rb{\theta}}}}{\partial \theta} &= \int f\rb{x_{t}} \sqb{\partial_{\theta} \log g\rb{\theta,x_{t}}} g\rb{\theta,x_{t}} dx_{t} \\
+				\mathcal{S}_{LR}\rb{t,\theta;f} = \frac{\partial \E{f\rb{\BS{X}_{t}\rb{\theta}}}}{\partial \theta} &= \int f\rb{x_{t}} \sqb{\partial_{\theta} \log g\rb{\theta,x_{t}}} g\rb{\theta,x_{t}} dx_{t} \\
 				\, &= \E{f\rb{\BS{X}_{t}\rb{\theta}} \partial_{\theta} \log g \rb{\theta,\BS{X}_{t}}}
 			\end{align*}
 			where $g$ represents the change in measure by a p.d.f. \textcolor{red}{$g$ is unknown which means that it is difficult to calculate local sensitivity using likelihood estimator. Also there is no appropriate change of measure on path space as the parameters $c_{k}$ and $\tau_{k}$ appear in both drift and diffusion terms.} \\
@@ -571,8 +590,8 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 		\textcolor{blue}{\textbf{Observation:}} \\
 		Let $\varepsilon = 0.1$. In order to reduce the error by a factor of $10$.
 		\begin{itemize}
-			\item {\textit{Coupled Noise:} $M = 10^{4}$ samples}
-			\item {\textit{Decoupled Noise:} $M = 10^{2}$ samples}
+			\item {\textit{Coupled Noise:} $M = 10^{2}$ samples}
+			\item {\textit{Decoupled Noise:} $M = 10^{4}$ samples}
 		\end{itemize}
 		Hence the statistical error becomes independent of the perturbation parameter on using a common random path coupling i.e. $R_{1}$ and $R_{2}$ use the same Wiener process $dW$.
 	\end{frame}
@@ -658,7 +677,7 @@ ItalicFont    =calibrii.ttf]{calibri.ttf}
 			%\item {Sensitivity analysis was performed using \texttt{Central Difference} finite difference stencil}
 			\item {Significant reduction in variance of the calculated sensitivity on using a common coupled random path for the diffusion term of GLE.}
 			\item {Order of variance reduction for $D\rb{Z_{t}}$ was observed to be $\mathcal{O}\rb{\varepsilon^{2}}$ for coupled noise and $\mathcal{O}\rb{1}$ for decoupled noise.}
-			\item {Order of variance reduction for $\Delta_{c}$ was observed to be $\mathcal{O}\rb{M^{-1}}$ for coupled noise and $\mathcal{O}\rb{\varepsilon^{-2}M^{-2}}$ for decoupled noise.}
+			\item {Order of variance reduction for $\Delta_{c}$ was observed to be $\mathcal{O}\rb{M^{-1}}$ for coupled noise and $\mathcal{O}\rb{\varepsilon^{-2}M^{-1}}$ for decoupled noise.}
 		\end{itemize}
 	\end{frame}
 

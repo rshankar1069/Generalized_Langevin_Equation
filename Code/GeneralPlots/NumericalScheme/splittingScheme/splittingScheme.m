@@ -13,8 +13,8 @@ m = 1;                                      % Mass of one individual particle
 M = m*eye(d*Np,d*Np);                       % Mass matrix involving all the particles
 S = zeros(d*Np,Nk);                         % Initial value of the composite variable
 
-posmag = 0.00;                              % Position Magnitude Scaling
-velmag = 0.01;                              % Velocity Magnitude Scaling
+posmag = 0.1;                              % Position Magnitude Scaling
+velmag = 0.1;                              % Velocity Magnitude Scaling
 Vt = velmag*ones(d*Np,Nt+1);                % Velocity matrices for all time steps, particles and dimensions
 Xt = posmag*ones(d*Np,Nt+1);                % Position matrices for all time steps, particles and dimensions
 
@@ -86,6 +86,10 @@ end
 % Normalized VAF calculation
 
 normVAF = normalizedVAF(Vt,Nt);
+
+% Position Correlation Function
+
+normPAF = normalizedPAF(Xt,Nt);
 
 % Error Bar Calculation
 
